@@ -47,7 +47,7 @@ function getBase() {
 async function api(path, opts = {}) {
   const base = getBase();
   if (!base) return null;
-  const url = base.replace(/\/$/, '') + '/' + path;
+  const url = base.replace(/\/$/, '') + '/functions/v1/cue/' + path;
   const r = await fetch(url, {
     headers: {
       'Content-Type': 'application/json'
@@ -228,7 +228,7 @@ function ConnectPage({
   const test = async () => {
     if (!url.trim()) return;
     try {
-      const r = await fetch(url.trim().replace(/\/$/, '') + '/constellations');
+      const r = await fetch(url.trim().replace(/\/$/, '') + '/functions/v1/cue/constellations');
       if (r.ok) {
         window.location.hash = url.trim();
         onConnect();
@@ -266,7 +266,7 @@ function ConnectPage({
   }, 'CONNECT TO SUPABASE'), React.createElement('input', {
     value: url,
     onChange: e => setUrl(e.target.value),
-    placeholder: 'https://xxx.supabase.co/functions/v1/cue',
+    placeholder: 'https://xxx.supabase.co',
     style: {
       width: '100%',
       maxWidth: 360,
