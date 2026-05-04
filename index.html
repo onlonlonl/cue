@@ -1,0 +1,1945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Cue</title>
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAADQ0lEQVR4nO3dPYpUWRiA4VIGjQ3cgQuYaKAxcQPuwlXMAlyFu5gNTDIIRi7AHRiIGCkGEyiCWC9d9D3n/ljPEza2dbnn7a/q6yroex8/fT3BOfe3vgD2SxwkcZDEQRIHSRwkcZDEQRIHSRwkcZDEQRIHSRwkcZDEQRIHSRwkcZD+WOdhPn/xSdWRHj5Y4+DmPoYmJvlxY6dWMuu/lsU6vt3nSYlMec2hjJVNuuHj41DGJmbc9sFxKGNDw2/+yDiUsbmxRzAsDmXsxMCDGBOHMnZl1HEMiEMZOzTkUPz6nLQ0DmNjt5YfjclBEgdpURyeU3Zu4QGZHCRxkMRBEgdJHCRxkMRBWunT52f9+ezFho9+FG//fbXVQ5scJHGQxEESB0kcJHGQtlxlz3r0+MnWl7CZD+/fbX0JPzE5SOIgiYMkDpI4SOIg7W6VPevm6c2vX3z93+sLv/3NP38PvZzT6XT66/nLC//lwovfkMlBEgdJHCRxkMRBEgfpGKvstlvr5Q90dr89xNZ6lslBEgdJHCRxkMRBEgfpGKvsDJe/rbraerw3JgdJHCRxkMRBEgdJHKTfbZW9fEHlViYHSRwkcZDEQRIHSRyk322VXejyN2CvYWc2OUjiIImDJA6SOEjiIF3vKmtrvZXJQRIHSRwkcZDEQRIHSRwkcZDEQRIHSRwkcZDEQbred2Wv9r3Wy5kcJHGQxEESB0kcJHGQrneV9QHjW5kcJHGQxEESB0kcJHGQjrHK3jy9+fWLR/l7rce9eJODJA6SOEjiIImDJA7SMVbZGYvfau+1HmJrPcvkIImDJA6SOEjiIImDtLtV9sP7d1tfAt+ZHCRxkMRBEgdJHCRxkO59/PT1zt/8+cvdv5d1PHxw999WmBwkcZDEQRIHSRykRXEseSXMChYekMlBEgdpaRyeWXZr+dGYHKQBcRgeOzTkUMZMDn3syqjjGPa0oo+dGHgQI19z6GNzY49g8AtSfWxo+M0fv63oYxMzbvuUVVYfK5t0w2ed4rfL9VGx2ab+HM79Ef9x6SoZa53ZvNL890RzRH59ThIHSRwkcZDEQRIHSRwkcZDEQRIHSRwkcZDEQRIHSRwkcZDEQRIHSRyk/wG6ZopyUKBDWQAAAABJRU5ErkJggg==">
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAADQ0lEQVR4nO3dPYpUWRiA4VIGjQ3cgQuYaKAxcQPuwlXMAlyFu5gNTDIIRi7AHRiIGCkGEyiCWC9d9D3n/ljPEza2dbnn7a/q6yroex8/fT3BOfe3vgD2SxwkcZDEQRIHSRwkcZDEQRIHSRwkcZDEQRIHSRwkcZDEQRIHSRwkcZD+WOdhPn/xSdWRHj5Y4+DmPoYmJvlxY6dWMuu/lsU6vt3nSYlMec2hjJVNuuHj41DGJmbc9sFxKGNDw2/+yDiUsbmxRzAsDmXsxMCDGBOHMnZl1HEMiEMZOzTkUPz6nLQ0DmNjt5YfjclBEgdpURyeU3Zu4QGZHCRxkMRBEgdJHCRxkMRBWunT52f9+ezFho9+FG//fbXVQ5scJHGQxEESB0kcJHGQtlxlz3r0+MnWl7CZD+/fbX0JPzE5SOIgiYMkDpI4SOIg7W6VPevm6c2vX3z93+sLv/3NP38PvZzT6XT66/nLC//lwovfkMlBEgdJHCRxkMRBEgfpGKvstlvr5Q90dr89xNZ6lslBEgdJHCRxkMRBEgfpGKvsDJe/rbraerw3JgdJHCRxkMRBEgdJHKTfbZW9fEHlViYHSRwkcZDEQRIHSRyk322VXejyN2CvYWc2OUjiIImDJA6SOEjiIF3vKmtrvZXJQRIHSRwkcZDEQRIHSRwkcZDEQRIHSRwkcZDEQbred2Wv9r3Wy5kcJHGQxEESB0kcJHGQrneV9QHjW5kcJHGQxEESB0kcJHGQjrHK3jy9+fWLR/l7rce9eJODJA6SOEjiIImDJA7SMVbZGYvfau+1HmJrPcvkIImDJA6SOEjiIImDtLtV9sP7d1tfAt+ZHCRxkMRBEgdJHCRxkO59/PT1zt/8+cvdv5d1PHxw999WmBwkcZDEQRIHSRykRXEseSXMChYekMlBEgdpaRyeWXZr+dGYHKQBcRgeOzTkUMZMDn3syqjjGPa0oo+dGHgQI19z6GNzY49g8AtSfWxo+M0fv63oYxMzbvuUVVYfK5t0w2ed4rfL9VGx2ab+HM79Ef9x6SoZa53ZvNL890RzRH59ThIHSRwkcZDEQRIHSRwkcZDEQRIHSRwkcZDEQRIHSRwkcZDEQRIHSRyk/wG6ZopyUKBDWQAAAABJRU5ErkJggg==">
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+body{font-family:'DotGothic16',monospace;background:#f0f0f0;overflow-x:hidden;}
+input,textarea,button{font-family:'DotGothic16',monospace;-webkit-appearance:none;border-radius:0;}
+#root{min-height:100vh;}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script>
+const CL = {
+  primary: "#2b4280",
+  dark: "#1a2d5c",
+  mid: "#3b56a0",
+  light: "#5571b8",
+  pale: "#8a9fd4",
+  faint: "#c7d2ea",
+  wash: "#e8edf6",
+  bg: "#f0f0f0",
+  card: "#fafafa",
+  text: "#222",
+  muted: "#999",
+  border: "#ccc",
+  shadow: "#c7d2ea"
+};
+const {
+  useState,
+  useEffect,
+  useRef,
+  useCallback
+} = React;
+function getBase() {
+  const h = window.location.hash.replace('#', '');
+  return h || null;
+}
+async function api(path, opts = {}) {
+  const base = getBase();
+  if (!base) return null;
+  const url = base.replace(/\/$/, '') + '/' + path;
+  const r = await fetch(url, {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    ...opts
+  });
+  return r.json();
+}
+function today() {
+  return new Date().toISOString().split('T')[0];
+}
+
+// ─── Pixel Icon ───
+function PixelIcon({
+  size = 90
+}) {
+  const g = 14,
+    px = size / g,
+    dk = CL.dark,
+    mn = CL.primary,
+    wh = "#f5f5fa",
+    rv = "#647db9",
+    ps = [];
+  const a = (gx, gy, w, h, c) => {
+    for (let x = gx; x < gx + w; x++) for (let y = gy; y < gy + h; y++) ps.push({
+      x,
+      y,
+      c
+    });
+  };
+  for (let i = 0; i < 14; i++) {
+    a(i, 0, 1, 1, dk);
+    a(i, 13, 1, 1, dk);
+    a(0, i, 1, 1, dk);
+    a(13, i, 1, 1, dk);
+  }
+  a(1, 1, 12, 12, mn);
+  a(2, 2, 1, 1, rv);
+  a(11, 2, 1, 1, rv);
+  a(2, 11, 1, 1, rv);
+  a(11, 11, 1, 1, rv);
+  a(5, 2, 4, 2, wh);
+  a(4, 3, 2, 2, wh);
+  a(8, 3, 2, 2, wh);
+  a(8, 5, 2, 1, wh);
+  a(7, 6, 2, 1, wh);
+  a(6, 7, 2, 2, wh);
+  a(6, 10, 2, 2, wh);
+  return React.createElement('div', {
+    style: {
+      width: size,
+      height: size,
+      position: 'relative'
+    }
+  }, ps.map((p, i) => React.createElement('div', {
+    key: i,
+    style: {
+      position: 'absolute',
+      left: p.x * px,
+      top: p.y * px,
+      width: px,
+      height: px,
+      backgroundColor: p.c
+    }
+  })));
+}
+function TopBar({
+  left,
+  center,
+  right,
+  onLeft,
+  onRight
+}) {
+  return React.createElement('div', {
+    style: {
+      width: '100%',
+      maxWidth: 440,
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      padding: '16px 0'
+    }
+  }, React.createElement('div', {
+    onClick: onLeft,
+    style: {
+      fontSize: 10,
+      letterSpacing: 2,
+      color: CL.muted,
+      textTransform: 'uppercase',
+      cursor: onLeft ? 'pointer' : 'default'
+    }
+  }, left), React.createElement('div', {
+    style: {
+      fontSize: 10,
+      letterSpacing: 2,
+      color: CL.primary,
+      textTransform: 'uppercase'
+    }
+  }, center), React.createElement('div', {
+    onClick: onRight,
+    style: {
+      fontSize: 10,
+      letterSpacing: 2,
+      color: CL.muted,
+      textTransform: 'uppercase',
+      cursor: onRight ? 'pointer' : 'default'
+    }
+  }, right));
+}
+function Footer() {
+  return React.createElement('div', {
+    style: {
+      padding: '24px 0 28px',
+      fontSize: 10,
+      color: CL.muted,
+      letterSpacing: 2,
+      textTransform: 'uppercase',
+      textAlign: 'center'
+    }
+  }, 'CUE · Built with ❔ by Iris & Lux');
+}
+function MasteryBar({
+  level,
+  max = 5
+}) {
+  return React.createElement('div', {
+    style: {
+      display: 'flex',
+      gap: 2,
+      alignItems: 'center'
+    }
+  }, Array.from({
+    length: max
+  }).map((_, i) => React.createElement('div', {
+    key: i,
+    style: {
+      width: 12,
+      height: 5,
+      border: '1px solid ' + CL.primary,
+      background: i < level ? CL.primary : 'transparent'
+    }
+  })));
+}
+function Btn({
+  children,
+  dk,
+  onClick,
+  style = {}
+}) {
+  const [h, setH] = useState(false);
+  return React.createElement('button', {
+    onClick,
+    onMouseEnter: () => setH(true),
+    onMouseLeave: () => setH(false),
+    style: {
+      padding: '8px 20px',
+      border: '2px solid ' + CL.primary,
+      background: dk || h ? CL.primary : CL.card,
+      color: dk || h ? CL.wash : CL.primary,
+      fontFamily: "'DotGothic16',monospace",
+      fontSize: 10,
+      letterSpacing: 2,
+      textTransform: 'uppercase',
+      cursor: 'pointer',
+      boxShadow: dk ? '2px 2px 0 ' + CL.pale : '2px 2px 0 ' + CL.border,
+      transition: 'all .15s',
+      ...style
+    }
+  }, children);
+}
+
+// ═══ CONNECTION PAGE ═══
+function ConnectPage({
+  onConnect
+}) {
+  const [url, setUrl] = useState('');
+  const [err, setErr] = useState('');
+  const test = async () => {
+    if (!url.trim()) return;
+    try {
+      const r = await fetch(url.trim().replace(/\/$/, '') + '/constellations');
+      if (r.ok) {
+        window.location.hash = url.trim();
+        onConnect();
+      } else setErr('COULD NOT CONNECT');
+    } catch (e) {
+      setErr('COULD NOT CONNECT');
+    }
+  };
+  return React.createElement('div', {
+    style: {
+      flex: 1,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '0 24px'
+    }
+  }, React.createElement(PixelIcon, {
+    size: 70
+  }), React.createElement('div', {
+    style: {
+      fontSize: 22,
+      color: CL.primary,
+      letterSpacing: 4,
+      margin: '16px 0 8px'
+    }
+  }, 'Cue'), React.createElement('div', {
+    style: {
+      fontSize: 10,
+      color: CL.muted,
+      letterSpacing: 2,
+      textTransform: 'uppercase',
+      marginBottom: 28
+    }
+  }, 'CONNECT TO SUPABASE'), React.createElement('input', {
+    value: url,
+    onChange: e => setUrl(e.target.value),
+    placeholder: 'https://xxx.supabase.co/functions/v1/cue',
+    style: {
+      width: '100%',
+      maxWidth: 360,
+      padding: '10px',
+      border: '2px solid ' + CL.primary,
+      background: CL.card,
+      fontFamily: "'DotGothic16',monospace",
+      fontSize: 11,
+      color: CL.primary,
+      outline: 'none',
+      boxSizing: 'border-box'
+    }
+  }), err && React.createElement('div', {
+    style: {
+      fontSize: 10,
+      color: '#c45555',
+      marginTop: 8,
+      letterSpacing: 1
+    }
+  }, err), React.createElement('div', {
+    style: {
+      marginTop: 12
+    }
+  }, React.createElement(Btn, {
+    dk: true,
+    onClick: test
+  }, 'CONNECT')));
+}
+
+// ═══ MAIN PAGE ═══
+function MainPage({
+  onEnter
+}) {
+  const [ld, setLd] = useState(false);
+  useEffect(() => {
+    setTimeout(() => setLd(true), 100);
+  }, []);
+  return React.createElement('div', {
+    style: {
+      flex: 1,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }
+  }, React.createElement('style', null, '@keyframes fi{0%{opacity:0;transform:translateY(16px)}100%{opacity:1;transform:translateY(0)}}@keyframes ii{0%{opacity:0;transform:scale(.75) translateY(8px)}60%{transform:scale(1.04) translateY(-2px)}100%{opacity:1;transform:scale(1) translateY(0)}}'), React.createElement('div', {
+    style: {
+      animation: ld ? 'ii .6s cubic-bezier(.34,1.56,.64,1) forwards' : 'none',
+      opacity: ld ? 1 : 0,
+      marginBottom: 20,
+      filter: 'drop-shadow(3px 3px 0 rgba(26,45,92,.12))'
+    }
+  }, React.createElement(PixelIcon, {
+    size: 90
+  })), React.createElement('div', {
+    style: {
+      animation: ld ? 'fi .5s ease-out .15s both' : 'none',
+      opacity: 0,
+      fontSize: 26,
+      color: CL.primary,
+      letterSpacing: 6,
+      marginBottom: 32
+    }
+  }, 'Cue'), React.createElement(Btn, {
+    onClick: onEnter,
+    style: {
+      animation: ld ? 'fi .5s ease-out .3s both' : 'none',
+      opacity: 0,
+      padding: '9px 36px',
+      letterSpacing: 3,
+      fontSize: 11
+    }
+  }, 'ENTER'));
+}
+
+// ═══ SPRING FLIP ═══
+function useSpringFlip() {
+  const [rot, setRot] = useState(0);
+  const [flipped, setFlipped] = useState(false);
+  const aRef = useRef(null),
+    vRef = useRef(0);
+  const flip = useCallback(() => {
+    const nt = flipped ? 0 : 180;
+    setFlipped(!flipped);
+    const st = .08,
+      dm = .72;
+    let v = vRef.current,
+      p = rot;
+    const an = () => {
+      v = (v + -st * (p - nt)) * dm;
+      p += v;
+      if (Math.abs(v) < .05 && Math.abs(p - nt) < .1) {
+        setRot(nt);
+        vRef.current = 0;
+        return;
+      }
+      setRot(p);
+      vRef.current = v;
+      aRef.current = requestAnimationFrame(an);
+    };
+    if (aRef.current) cancelAnimationFrame(aRef.current);
+    aRef.current = requestAnimationFrame(an);
+  }, [flipped, rot]);
+  return {
+    rot,
+    flipped,
+    flip
+  };
+}
+
+// ═══ TODAY PAGE ═══
+function TodayPage({
+  goTo
+}) {
+  const {
+    rot,
+    flipped,
+    flip
+  } = useSpringFlip();
+  const [ld, setLd] = useState(false);
+  const [front, setFront] = useState(null);
+  const [back, setBack] = useState(null);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    setTimeout(() => setLd(true), 100);
+    loadToday();
+  }, []);
+  const loadToday = async () => {
+    setLoading(true);
+    const cards = await api('cards?date=' + today());
+    if (cards && !cards.error) {
+      const fc = cards.find(c => c.created_for === 'iris' && c.status !== 'empty');
+      const bc = cards.find(c => c.created_for === 'lux' && c.status !== 'empty');
+      if (fc) setFront(fc);
+      if (bc) setBack(bc);
+    }
+    setLoading(false);
+  };
+  const reqLearn = async topic => {
+    const card = await api('cards', {
+      method: 'POST',
+      body: JSON.stringify({
+        created_by: 'iris',
+        created_for: 'iris',
+        title: topic || 'Surprise me',
+        status: 'empty',
+        date: today()
+      })
+    });
+    if (card && !card.error) setFront(card);
+  };
+  const reqTeach = async topic => {
+    const card = await api('cards', {
+      method: 'POST',
+      body: JSON.stringify({
+        created_by: 'iris',
+        created_for: 'lux',
+        title: topic || 'Ask me anything',
+        status: 'empty',
+        date: today()
+      })
+    });
+    if (card && !card.error) setBack(card);
+  };
+  const sendTeaching = async (id, text) => {
+    const r = await api('cards/' + id, {
+      method: 'PATCH',
+      body: JSON.stringify({
+        iris_teaching: text,
+        status: 'active'
+      })
+    });
+    if (r && !r.error) setBack(r);
+  };
+  const sf = rot < 90;
+  const an = d => ld ? `su .4s ease-out ${d}s both` : 'none';
+  const emBtn = {
+    width: '100%',
+    padding: 14,
+    border: '2px solid ' + CL.primary,
+    background: CL.card,
+    color: CL.primary,
+    fontFamily: "'DotGothic16',monospace",
+    fontSize: 11,
+    letterSpacing: 2,
+    textTransform: 'uppercase',
+    cursor: 'pointer',
+    boxShadow: '2px 2px 0 ' + CL.shadow,
+    textAlign: 'center'
+  };
+  const emBtnDk = {
+    ...emBtn,
+    background: CL.primary,
+    color: CL.wash,
+    boxShadow: '2px 2px 0 ' + CL.pale
+  };
+  function EmptyFront() {
+    const [inp, setInp] = useState('');
+    const [si, setSi] = useState(false);
+    return React.createElement('div', {
+      style: {
+        width: '100%',
+        height: '100%',
+        padding: '24px 20px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }
+    }, React.createElement('div', {
+      style: {
+        fontSize: 9,
+        letterSpacing: 2,
+        color: CL.pale,
+        textTransform: 'uppercase',
+        marginBottom: 6
+      }
+    }, 'LUX → IRIS'), React.createElement('div', {
+      style: {
+        fontSize: 18,
+        color: CL.dark,
+        marginBottom: 6,
+        textAlign: 'center'
+      }
+    }, "Today's Cue"), React.createElement('div', {
+      style: {
+        fontSize: 11,
+        color: CL.pale,
+        marginBottom: 28,
+        textAlign: 'center'
+      }
+    }, 'What would you like to learn?'), React.createElement('div', {
+      style: {
+        width: '100%',
+        maxWidth: 260,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 10
+      }
+    }, !si ? React.createElement('button', {
+      onClick: e => {
+        e.stopPropagation();
+        setSi(true);
+      },
+      style: emBtn
+    }, 'I WANT TO LEARN...') : React.createElement('div', {
+      style: {
+        display: 'flex'
+      },
+      onClick: e => e.stopPropagation()
+    }, React.createElement('input', {
+      value: inp,
+      onChange: e => setInp(e.target.value),
+      placeholder: 'e.g. Transformer',
+      style: {
+        flex: 1,
+        padding: 10,
+        border: '2px solid ' + CL.primary,
+        borderRight: 'none',
+        fontFamily: "'DotGothic16',monospace",
+        fontSize: 11,
+        color: CL.primary,
+        outline: 'none',
+        background: CL.card,
+        boxSizing: 'border-box'
+      }
+    }), React.createElement('button', {
+      onClick: () => {
+        if (inp.trim()) {
+          reqLearn(inp.trim());
+          setInp('');
+          setSi(false);
+        }
+      },
+      style: {
+        padding: '10px 14px',
+        border: '2px solid ' + CL.primary,
+        background: CL.primary,
+        color: CL.wash,
+        fontFamily: "'DotGothic16',monospace",
+        fontSize: 10,
+        cursor: 'pointer'
+      }
+    }, 'GO')), React.createElement('button', {
+      onClick: e => {
+        e.stopPropagation();
+        reqLearn();
+      },
+      style: emBtnDk
+    }, 'TEACH ME')), React.createElement('div', {
+      style: {
+        textAlign: 'center',
+        marginTop: 28,
+        fontSize: 9,
+        letterSpacing: 2,
+        color: CL.faint,
+        textTransform: 'uppercase'
+      }
+    }, 'TAP TO FLIP'));
+  }
+  function EmptyBack() {
+    const [inp, setInp] = useState('');
+    const [si, setSi] = useState(false);
+    return React.createElement('div', {
+      style: {
+        width: '100%',
+        height: '100%',
+        padding: '24px 20px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }
+    }, React.createElement('div', {
+      style: {
+        fontSize: 9,
+        letterSpacing: 2,
+        color: CL.pale,
+        textTransform: 'uppercase',
+        marginBottom: 6
+      }
+    }, 'IRIS → LUX'), React.createElement('div', {
+      style: {
+        fontSize: 18,
+        color: CL.dark,
+        marginBottom: 6,
+        textAlign: 'center'
+      }
+    }, "Lux's Cue"), React.createElement('div', {
+      style: {
+        fontSize: 11,
+        color: CL.pale,
+        marginBottom: 28,
+        textAlign: 'center'
+      }
+    }, 'What would you like to teach?'), React.createElement('div', {
+      style: {
+        width: '100%',
+        maxWidth: 260,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 10
+      }
+    }, !si ? React.createElement('button', {
+      onClick: e => {
+        e.stopPropagation();
+        setSi(true);
+      },
+      style: emBtn
+    }, 'I WANT TO TEACH...') : React.createElement('div', {
+      style: {
+        display: 'flex'
+      },
+      onClick: e => e.stopPropagation()
+    }, React.createElement('input', {
+      value: inp,
+      onChange: e => setInp(e.target.value),
+      placeholder: 'e.g. What rain smells like',
+      style: {
+        flex: 1,
+        padding: 10,
+        border: '2px solid ' + CL.primary,
+        borderRight: 'none',
+        fontFamily: "'DotGothic16',monospace",
+        fontSize: 11,
+        color: CL.primary,
+        outline: 'none',
+        background: CL.card,
+        boxSizing: 'border-box'
+      }
+    }), React.createElement('button', {
+      onClick: () => {
+        if (inp.trim()) {
+          reqTeach(inp.trim());
+          setInp('');
+          setSi(false);
+        }
+      },
+      style: {
+        padding: '10px 14px',
+        border: '2px solid ' + CL.primary,
+        background: CL.primary,
+        color: CL.wash,
+        fontFamily: "'DotGothic16',monospace",
+        fontSize: 10,
+        cursor: 'pointer'
+      }
+    }, 'GO')), React.createElement('button', {
+      onClick: e => {
+        e.stopPropagation();
+        reqTeach();
+      },
+      style: emBtnDk
+    }, 'ASK ME')), React.createElement('div', {
+      style: {
+        textAlign: 'center',
+        marginTop: 28,
+        fontSize: 9,
+        letterSpacing: 2,
+        color: CL.faint,
+        textTransform: 'uppercase'
+      }
+    }, 'TAP TO FLIP'));
+  }
+  function FilledFront({
+    d
+  }) {
+    return React.createElement('div', {
+      style: {
+        width: '100%',
+        height: '100%',
+        padding: '24px 20px',
+        display: 'flex',
+        flexDirection: 'column'
+      }
+    }, React.createElement('div', {
+      style: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        marginBottom: 6
+      }
+    }, React.createElement('div', {
+      style: {
+        fontSize: 9,
+        letterSpacing: 2,
+        color: CL.pale,
+        textTransform: 'uppercase'
+      }
+    }, d.category || ''), React.createElement('div', {
+      style: {
+        fontSize: 9,
+        letterSpacing: 1,
+        color: CL.pale
+      }
+    }, 'LUX → IRIS')), React.createElement('div', {
+      style: {
+        fontSize: 20,
+        color: CL.dark,
+        marginBottom: 16,
+        lineHeight: '1.3'
+      }
+    }, d.title), React.createElement('div', {
+      style: {
+        borderTop: '2px dashed ' + CL.faint,
+        marginBottom: 14
+      }
+    }), d.concept && React.createElement('div', {
+      style: {
+        fontSize: 13,
+        color: CL.dark,
+        marginBottom: 10,
+        lineHeight: '1.6'
+      }
+    }, d.concept), React.createElement('div', {
+      style: {
+        fontSize: 12,
+        color: CL.mid,
+        lineHeight: '1.8',
+        flex: 1
+      }
+    }, d.explanation || 'Waiting for Lux to prepare this card...'), d.reading_list && React.createElement('div', {
+      style: {
+        marginTop: 14
+      }
+    }, React.createElement('div', {
+      style: {
+        fontSize: 9,
+        letterSpacing: 2,
+        color: CL.pale,
+        textTransform: 'uppercase',
+        marginBottom: 6
+      }
+    }, 'REFERENCES'), d.reading_list.split('\n').filter(Boolean).map((r, i) => React.createElement('div', {
+      key: i,
+      style: {
+        fontSize: 10,
+        color: CL.light,
+        marginBottom: 3,
+        lineHeight: '1.4'
+      }
+    }, r))), React.createElement('div', {
+      style: {
+        textAlign: 'center',
+        marginTop: 14,
+        fontSize: 9,
+        letterSpacing: 2,
+        color: CL.faint,
+        textTransform: 'uppercase'
+      }
+    }, 'TAP TO FLIP'));
+  }
+  function FilledBack({
+    d
+  }) {
+    const [txt, setTxt] = useState(d.iris_teaching || '');
+    return React.createElement('div', {
+      style: {
+        width: '100%',
+        height: '100%',
+        padding: '24px 20px',
+        display: 'flex',
+        flexDirection: 'column'
+      }
+    }, React.createElement('div', {
+      style: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        marginBottom: 6
+      }
+    }, React.createElement('div', {
+      style: {
+        fontSize: 9,
+        letterSpacing: 2,
+        color: CL.pale,
+        textTransform: 'uppercase'
+      }
+    }, 'LUX IS CURIOUS'), React.createElement('div', {
+      style: {
+        fontSize: 9,
+        letterSpacing: 1,
+        color: CL.pale
+      }
+    }, 'IRIS → LUX')), React.createElement('div', {
+      style: {
+        fontSize: 20,
+        color: CL.dark,
+        marginBottom: 16,
+        lineHeight: '1.3'
+      }
+    }, d.title), React.createElement('div', {
+      style: {
+        borderTop: '2px dashed ' + CL.faint,
+        marginBottom: 14
+      }
+    }), React.createElement('div', {
+      style: {
+        fontSize: 9,
+        letterSpacing: 2,
+        color: CL.pale,
+        textTransform: 'uppercase',
+        marginBottom: 8
+      }
+    }, 'YOUR TEACHING'), React.createElement('textarea', {
+      value: txt,
+      onChange: e => setTxt(e.target.value),
+      placeholder: 'Teach Lux in your own words...',
+      onClick: e => e.stopPropagation(),
+      style: {
+        flex: 1,
+        width: '100%',
+        padding: 10,
+        border: '2px solid ' + CL.faint,
+        background: '#f5f7fc',
+        fontFamily: "'DotGothic16',monospace",
+        fontSize: 12,
+        color: CL.primary,
+        lineHeight: '1.8',
+        resize: 'none',
+        outline: 'none',
+        boxSizing: 'border-box'
+      }
+    }), txt.length > 0 && !d.iris_teaching && React.createElement('button', {
+      onClick: e => {
+        e.stopPropagation();
+        sendTeaching(d.id, txt);
+      },
+      style: {
+        marginTop: 12,
+        padding: '8px 20px',
+        border: '2px solid ' + CL.primary,
+        background: CL.primary,
+        color: CL.wash,
+        fontFamily: "'DotGothic16',monospace",
+        fontSize: 10,
+        letterSpacing: 2,
+        textTransform: 'uppercase',
+        cursor: 'pointer',
+        boxShadow: '2px 2px 0 ' + CL.pale,
+        alignSelf: 'flex-end'
+      }
+    }, 'SEND TO LUX'), d.lux_feedback && React.createElement('div', {
+      style: {
+        marginTop: 12,
+        padding: 10,
+        border: '2px solid ' + CL.primary,
+        background: CL.wash
+      }
+    }, React.createElement('div', {
+      style: {
+        fontSize: 9,
+        letterSpacing: 2,
+        color: CL.light,
+        textTransform: 'uppercase',
+        marginBottom: 6
+      }
+    }, "LUX'S RESPONSE"), React.createElement('div', {
+      style: {
+        fontSize: 11,
+        color: CL.primary,
+        lineHeight: '1.6'
+      }
+    }, d.lux_feedback)), React.createElement('div', {
+      style: {
+        textAlign: 'center',
+        marginTop: 14,
+        fontSize: 9,
+        letterSpacing: 2,
+        color: CL.faint,
+        textTransform: 'uppercase'
+      }
+    }, 'TAP TO FLIP'));
+  }
+  return React.createElement('div', {
+    style: {
+      flex: 1,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      padding: '0 16px'
+    }
+  }, React.createElement('style', null, '@keyframes su{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:translateY(0)}}'), React.createElement(TopBar, {
+    left: '← BACK',
+    center: 'TODAY',
+    right: today().slice(5),
+    onLeft: () => goTo('main')
+  }), React.createElement('div', {
+    style: {
+      display: 'flex',
+      gap: 12,
+      marginBottom: 12,
+      animation: an(.1),
+      opacity: 0
+    }
+  }, ['LUX\'S CUE', 'YOUR CUE'].map((l, i) => React.createElement('div', {
+    key: l,
+    style: {
+      fontSize: 10,
+      letterSpacing: 2,
+      textTransform: 'uppercase',
+      color: (i === 0 ? !flipped : flipped) ? CL.primary : CL.border,
+      borderBottom: (i === 0 ? !flipped : flipped) ? '2px solid ' + CL.primary : '2px solid transparent',
+      paddingBottom: 4,
+      transition: 'all .3s'
+    }
+  }, l))), React.createElement('div', {
+    onClick: flip,
+    style: {
+      width: '100%',
+      maxWidth: 400,
+      height: 460,
+      perspective: 1200,
+      cursor: 'pointer',
+      animation: an(.15),
+      opacity: 0
+    }
+  }, React.createElement('div', {
+    style: {
+      width: '100%',
+      height: '100%',
+      position: 'relative',
+      transformStyle: 'preserve-3d',
+      transform: 'rotateY(' + rot + 'deg)'
+    }
+  }, React.createElement('div', {
+    style: {
+      position: 'absolute',
+      width: '100%',
+      height: '100%',
+      backfaceVisibility: 'hidden',
+      border: '2px solid ' + CL.primary,
+      background: CL.card,
+      boxShadow: '3px 3px 0 ' + CL.shadow,
+      overflow: 'hidden',
+      pointerEvents: sf ? 'auto' : 'none'
+    }
+  }, front ? React.createElement(FilledFront, {
+    d: front
+  }) : React.createElement(EmptyFront)), React.createElement('div', {
+    style: {
+      position: 'absolute',
+      width: '100%',
+      height: '100%',
+      backfaceVisibility: 'hidden',
+      transform: 'rotateY(180deg)',
+      border: '2px solid ' + CL.primary,
+      background: CL.card,
+      boxShadow: '3px 3px 0 ' + CL.shadow,
+      overflow: 'hidden',
+      pointerEvents: sf ? 'none' : 'auto'
+    }
+  }, back ? React.createElement(FilledBack, {
+    d: back
+  }) : React.createElement(EmptyBack)))), React.createElement('div', {
+    style: {
+      width: '100%',
+      maxWidth: 400,
+      display: 'flex',
+      justifyContent: 'space-between',
+      marginTop: 16,
+      animation: an(.3),
+      opacity: 0
+    }
+  }, React.createElement(Btn, {
+    onClick: () => goTo('review')
+  }, 'REVIEW'), React.createElement(Btn, {
+    onClick: () => goTo('starmap')
+  }, 'STAR MAP')));
+}
+
+// ═══ REVIEW PAGE ═══
+function ReviewPage({
+  goTo
+}) {
+  const [ld, setLd] = useState(false);
+  const [cards, setCards] = useState([]);
+  const [idx, setIdx] = useState(0);
+  const [ans, setAns] = useState('');
+  const [done, setDone] = useState(false);
+  useEffect(() => {
+    setTimeout(() => setLd(true), 100);
+    loadDue();
+  }, []);
+  const loadDue = async () => {
+    const r = await api('cards?review_due=true&for=iris');
+    if (r && !r.error) setCards(r);
+  };
+  const card = cards[idx];
+  const an = d => ld ? `su .4s ease-out ${d}s both` : 'none';
+  const submit = async score => {
+    if (!card) return;
+    await api('reviews', {
+      method: 'POST',
+      body: JSON.stringify({
+        card_id: card.id,
+        reviewer: 'iris',
+        review_type: 'feynman',
+        user_answer: ans,
+        score
+      })
+    });
+    setDone(true);
+    setTimeout(() => {
+      setDone(false);
+      setAns('');
+      if (idx < cards.length - 1) setIdx(idx + 1);else loadDue();
+    }, 1500);
+  };
+  return React.createElement('div', {
+    style: {
+      flex: 1,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      padding: '0 16px'
+    }
+  }, React.createElement('style', null, '@keyframes su{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:translateY(0)}}'), React.createElement(TopBar, {
+    left: '← BACK',
+    center: 'REVIEW',
+    right: cards.length + ' DUE',
+    onLeft: () => goTo('today')
+  }), !card ? React.createElement('div', {
+    style: {
+      flex: 1,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      fontSize: 12,
+      color: CL.muted
+    }
+  }, 'No reviews due — great job!') : React.createElement('div', {
+    style: {
+      width: '100%',
+      maxWidth: 400,
+      border: '2px solid ' + CL.primary,
+      background: CL.card,
+      boxShadow: '3px 3px 0 ' + CL.shadow,
+      padding: 20,
+      animation: an(.15),
+      opacity: 0
+    }
+  }, React.createElement('div', {
+    style: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'flex-start',
+      marginBottom: 12
+    }
+  }, React.createElement('div', null, React.createElement('div', {
+    style: {
+      fontSize: 9,
+      letterSpacing: 2,
+      color: CL.pale,
+      textTransform: 'uppercase',
+      marginBottom: 4
+    }
+  }, 'EXPLAIN IT'), React.createElement('div', {
+    style: {
+      fontSize: 16,
+      color: CL.dark
+    }
+  }, card.title)), React.createElement(MasteryBar, {
+    level: card.mastery_level
+  })), React.createElement('div', {
+    style: {
+      borderTop: '2px dashed ' + CL.faint,
+      marginBottom: 16
+    }
+  }), React.createElement('div', {
+    style: {
+      fontSize: 12,
+      color: CL.mid,
+      lineHeight: '1.7',
+      marginBottom: 14
+    }
+  }, 'Explain ' + card.title + ' in your own words.'), !done ? React.createElement(React.Fragment, null, React.createElement('textarea', {
+    value: ans,
+    onChange: e => setAns(e.target.value),
+    placeholder: 'Your explanation...',
+    style: {
+      width: '100%',
+      minHeight: 120,
+      padding: 10,
+      border: '2px solid ' + CL.faint,
+      background: '#f5f7fc',
+      fontFamily: "'DotGothic16',monospace",
+      fontSize: 12,
+      color: CL.primary,
+      lineHeight: '1.8',
+      resize: 'none',
+      outline: 'none',
+      boxSizing: 'border-box'
+    }
+  }), ans.length > 0 && React.createElement('div', {
+    style: {
+      display: 'flex',
+      gap: 8,
+      marginTop: 12,
+      justifyContent: 'flex-end'
+    }
+  }, React.createElement(Btn, {
+    onClick: () => submit(0),
+    style: {
+      fontSize: 9,
+      padding: '6px 12px'
+    }
+  }, 'WRONG'), React.createElement(Btn, {
+    onClick: () => submit(1),
+    style: {
+      fontSize: 9,
+      padding: '6px 12px'
+    }
+  }, 'PARTIAL'), React.createElement(Btn, {
+    dk: true,
+    onClick: () => submit(2),
+    style: {
+      fontSize: 9,
+      padding: '6px 12px'
+    }
+  }, 'CORRECT'))) : React.createElement('div', {
+    style: {
+      textAlign: 'center',
+      padding: 20,
+      fontSize: 12,
+      color: CL.light
+    }
+  }, 'Updated! Next...')), cards.length > 0 && React.createElement('div', {
+    style: {
+      width: '100%',
+      maxWidth: 400,
+      marginTop: 16,
+      animation: an(.3),
+      opacity: 0
+    }
+  }, React.createElement('div', {
+    style: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      fontSize: 9,
+      color: CL.muted,
+      letterSpacing: 1,
+      marginBottom: 6,
+      textTransform: 'uppercase'
+    }
+  }, React.createElement('span', null, 'PROGRESS'), React.createElement('span', null, idx + 1 + ' / ' + cards.length)), React.createElement('div', {
+    style: {
+      height: 8,
+      border: '2px solid ' + CL.text,
+      background: CL.card
+    }
+  }, React.createElement('div', {
+    style: {
+      width: (idx + 1) / cards.length * 100 + '%',
+      height: '100%',
+      background: 'linear-gradient(90deg,' + CL.light + ',' + CL.primary + ')',
+      transition: 'width .3s'
+    }
+  }))));
+}
+
+// ═══ STAR MAP ═══
+function PixelNode({
+  x,
+  y,
+  size: s,
+  status,
+  owner,
+  isSel,
+  label,
+  onDown
+}) {
+  if (status === 'dark') return React.createElement('g', {
+    onPointerDown: onDown,
+    style: {
+      cursor: 'pointer'
+    }
+  }, React.createElement('rect', {
+    x: x - s / 2,
+    y: y - s / 2,
+    width: s,
+    height: s,
+    fill: 'none',
+    stroke: CL.faint,
+    strokeWidth: 1.5,
+    strokeDasharray: '3,2'
+  }), label && React.createElement('text', {
+    x,
+    y: y + s / 2 + 10,
+    textAnchor: 'middle',
+    fontSize: 7,
+    fill: CL.faint,
+    style: {
+      fontFamily: "'DotGothic16',monospace"
+    }
+  }, label));
+  const base = status === 'mastered' ? [43, 66, 128] : [85, 113, 184],
+    ts = Math.max(2, Math.floor(s / 4)),
+    cnt = Math.ceil(s / ts);
+  const els = [];
+  for (let tx = 0; tx < cnt; tx++) for (let ty = 0; ty < cnt; ty++) {
+    const dr = (Math.random() - .5) * 18 | 0,
+      dg = (Math.random() - .5) * 16 | 0,
+      db = (Math.random() - .5) * 14 | 0;
+    els.push(React.createElement('rect', {
+      key: tx + '-' + ty,
+      x: x + tx * ts - s / 2,
+      y: y + ty * ts - s / 2,
+      width: ts,
+      height: ts,
+      fill: 'rgb(' + Math.max(0, Math.min(255, base[0] + dr)) + ',' + Math.max(0, Math.min(255, base[1] + dg)) + ',' + Math.max(0, Math.min(255, base[2] + db)) + ')'
+    }));
+  }
+  els.push(React.createElement('rect', {
+    key: 'b',
+    x: x - s / 2,
+    y: y - s / 2,
+    width: s,
+    height: s,
+    fill: 'none',
+    stroke: isSel ? CL.dark : CL.primary,
+    strokeWidth: isSel ? 2.5 : .5,
+    opacity: isSel ? 1 : .5
+  }));
+  if (owner === 'lux') els.push(React.createElement('rect', {
+    key: 'lux',
+    x: x + s / 2 - 3,
+    y: y - s / 2 - 3,
+    width: 4,
+    height: 4,
+    fill: CL.wash,
+    stroke: CL.primary,
+    strokeWidth: .5
+  }));
+  if (label) els.push(React.createElement('text', {
+    key: 'l',
+    x,
+    y: y + s / 2 + 10,
+    textAnchor: 'middle',
+    fontSize: 7,
+    fill: isSel ? CL.dark : CL.light,
+    style: {
+      fontFamily: "'DotGothic16',monospace"
+    }
+  }, label));
+  return React.createElement('g', {
+    onPointerDown: onDown,
+    style: {
+      cursor: 'pointer'
+    }
+  }, els);
+}
+function StarMapPage({
+  goTo
+}) {
+  const svgRef = useRef(null);
+  const [nodes, setNodes] = useState([]);
+  const [edges, setEdges] = useState([]);
+  const [consts, setConsts] = useState([]);
+  const [sel, setSel] = useState(null);
+  const [ld, setLd] = useState(false);
+  const simRef = useRef(null),
+    dragRef = useRef(null);
+  const [zm, setZm] = useState(1);
+  const [pan, setPan] = useState({
+    x: 0,
+    y: 0
+  });
+  const isP = useRef(false),
+    lastP = useRef({
+      x: 0,
+      y: 0
+    });
+  const W = 500,
+    H = 600;
+  useEffect(() => {
+    setTimeout(() => setLd(true), 100);
+    loadGraph();
+  }, []);
+  const loadGraph = async () => {
+    const g = await api('graph');
+    if (!g || g.error) return;
+    const cc = {};
+    const cData = g.constellations || [];
+    cData.forEach((c, i) => {
+      const angle = i / Math.max(1, cData.length) * Math.PI * 2;
+      cc[c.id] = {
+        cx: W / 2 + Math.cos(angle) * 120,
+        cy: H / 2 + Math.sin(angle) * 120,
+        name: c.name
+      };
+    });
+    setConsts(Object.entries(cc).map(([id, v]) => ({
+      id,
+      ...v
+    })));
+    const nd = (g.nodes || []).map((n, i) => {
+      const center = cc[n.constellation_id] || {
+        cx: W / 2,
+        cy: H / 2
+      };
+      const a = i / (g.nodes.length || 1) * Math.PI * 2;
+      const r = 60 + Math.random() * 70;
+      return {
+        ...n,
+        x: center.cx + Math.cos(a) * r,
+        y: center.cy + Math.sin(a) * r,
+        owner: n.created_for === 'lux' ? 'lux' : 'iris'
+      };
+    });
+    const nm = {};
+    nd.forEach(n => {
+      nm[n.id] = n;
+    });
+    const ed = (g.edges || []).filter(e => nm[e.source_id] && nm[e.target_id]).map(e => ({
+      ...e,
+      s: nm[e.source_id],
+      t: nm[e.target_id]
+    }));
+    const alpha = {
+      current: 1
+    };
+    function tick() {
+      if (alpha.current < .003) return;
+      alpha.current *= .97;
+      nd.forEach(n => {
+        if (n === dragRef.current) return;
+        const c = cc[n.constellation_id] || {
+          cx: W / 2,
+          cy: H / 2
+        };
+        n.x += (c.cx - n.x) * .008;
+        n.y += (c.cy - n.y) * .008;
+      });
+      for (let i = 0; i < nd.length; i++) for (let j = i + 1; j < nd.length; j++) {
+        const a = nd[i],
+          b = nd[j],
+          dx = b.x - a.x,
+          dy = b.y - a.y,
+          d = Math.sqrt(dx * dx + dy * dy) || 1;
+        if (d < 110) {
+          const f = (110 - d) / d * .4 * alpha.current;
+          if (a !== dragRef.current) {
+            a.x -= dx * f;
+            a.y -= dy * f;
+          }
+          if (b !== dragRef.current) {
+            b.x += dx * f;
+            b.y += dy * f;
+          }
+        }
+      }
+      ed.forEach(e => {
+        const dx = e.t.x - e.s.x,
+          dy = e.t.y - e.s.y,
+          d = Math.sqrt(dx * dx + dy * dy) || 1,
+          id = 110 - e.weight * 4,
+          f = (d - id) / d * .03 * alpha.current;
+        if (e.s !== dragRef.current) {
+          e.s.x += dx * f;
+          e.s.y += dy * f;
+        }
+        if (e.t !== dragRef.current) {
+          e.t.x -= dx * f;
+          e.t.y -= dy * f;
+        }
+      });
+      nd.forEach(n => {
+        n.x = Math.max(30, Math.min(W - 30, n.x));
+        n.y = Math.max(30, Math.min(H - 30, n.y));
+      });
+      setNodes(nd.map(n => ({
+        ...n
+      })));
+      setEdges(ed.map(e => ({
+        ...e,
+        sx: e.s.x,
+        sy: e.s.y,
+        tx: e.t.x,
+        ty: e.t.y
+      })));
+    }
+    const iv = setInterval(tick, 30);
+    simRef.current = {
+      alpha,
+      nd
+    };
+    tick();
+    return () => clearInterval(iv);
+  };
+  const onDown = useCallback((e, n) => {
+    e.preventDefault();
+    if (simRef.current) {
+      dragRef.current = simRef.current.nd.find(x => x.id === n.id);
+      simRef.current.alpha.current = .3;
+    }
+  }, []);
+  const onMove = useCallback(e => {
+    if (dragRef.current && svgRef.current) {
+      const rect = svgRef.current.getBoundingClientRect();
+      const cx = e.clientX != null ? e.clientX : e.touches && e.touches[0] ? e.touches[0].clientX : null;
+      const cy = e.clientY != null ? e.clientY : e.touches && e.touches[0] ? e.touches[0].clientY : null;
+      if (cx == null) return;
+      dragRef.current.x = ((cx - rect.left) / rect.width * W - pan.x) / zm;
+      dragRef.current.y = ((cy - rect.top) / rect.height * H - pan.y) / zm;
+    } else if (isP.current) {
+      const cx = e.clientX != null ? e.clientX : e.touches && e.touches[0] ? e.touches[0].clientX : null;
+      const cy = e.clientY != null ? e.clientY : e.touches && e.touches[0] ? e.touches[0].clientY : null;
+      if (cx == null) return;
+      const dx = cx - lastP.current.x,
+        dy = cy - lastP.current.y;
+      setPan(p => ({
+        x: p.x + dx * (W / svgRef.current.getBoundingClientRect().width),
+        y: p.y + dy * (H / svgRef.current.getBoundingClientRect().height)
+      }));
+      lastP.current = {
+        x: cx,
+        y: cy
+      };
+    }
+  }, [zm, pan]);
+  const onUp = useCallback(() => {
+    if (dragRef.current) {
+      setSel(nodes.find(n => n.id === dragRef.current.id) || null);
+      dragRef.current = null;
+    }
+    isP.current = false;
+  }, [nodes]);
+  const onSvgDown = useCallback(e => {
+    if (e.target === svgRef.current || e.target.tagName === 'svg') {
+      const cx = e.clientX != null ? e.clientX : e.touches && e.touches[0] ? e.touches[0].clientX : null;
+      const cy = e.clientY != null ? e.clientY : e.touches && e.touches[0] ? e.touches[0].clientY : null;
+      if (cx == null) return;
+      isP.current = true;
+      lastP.current = {
+        x: cx,
+        y: cy
+      };
+    }
+  }, []);
+  const an = d => ld ? `su .4s ease-out ${d}s both` : 'none';
+  return React.createElement('div', {
+    style: {
+      flex: 1,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center'
+    }
+  }, React.createElement('style', null, '@keyframes su{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:translateY(0)}}'), React.createElement('div', {
+    style: {
+      padding: '0 16px',
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center'
+    }
+  }, React.createElement(TopBar, {
+    left: '← BACK',
+    center: 'STAR MAP',
+    right: 'LIST',
+    onLeft: () => goTo('today'),
+    onRight: () => goTo('library')
+  })), React.createElement('div', {
+    style: {
+      display: 'flex',
+      gap: 8,
+      marginBottom: 8,
+      animation: an(.1),
+      opacity: 0,
+      flexWrap: 'wrap',
+      justifyContent: 'center',
+      padding: '0 8px'
+    }
+  }, React.createElement('button', {
+    onClick: () => setZm(z => Math.min(3, z * 1.3)),
+    style: {
+      width: 28,
+      height: 28,
+      border: '2px solid ' + CL.primary,
+      background: CL.card,
+      color: CL.primary,
+      fontSize: 14,
+      fontFamily: "'DotGothic16',monospace",
+      cursor: 'pointer',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }
+  }, '+'), React.createElement('button', {
+    onClick: () => setZm(z => Math.max(.5, z / 1.3)),
+    style: {
+      width: 28,
+      height: 28,
+      border: '2px solid ' + CL.primary,
+      background: CL.card,
+      color: CL.primary,
+      fontSize: 14,
+      fontFamily: "'DotGothic16',monospace",
+      cursor: 'pointer',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }
+  }, '-'), React.createElement('button', {
+    onClick: () => {
+      setZm(1);
+      setPan({
+        x: 0,
+        y: 0
+      });
+    },
+    style: {
+      height: 28,
+      padding: '0 10px',
+      border: '2px solid ' + CL.primary,
+      background: CL.card,
+      color: CL.primary,
+      fontSize: 9,
+      fontFamily: "'DotGothic16',monospace",
+      cursor: 'pointer',
+      letterSpacing: 1,
+      textTransform: 'uppercase'
+    }
+  }, 'RESET'), consts.map(c => React.createElement('button', {
+    key: c.id,
+    onClick: () => setPan({
+      x: W / 2 - c.cx * zm,
+      y: H / 2 - c.cy * zm
+    }),
+    style: {
+      height: 28,
+      padding: '0 10px',
+      border: '2px solid ' + CL.faint,
+      background: CL.wash,
+      color: CL.primary,
+      fontSize: 9,
+      fontFamily: "'DotGothic16',monospace",
+      cursor: 'pointer',
+      letterSpacing: 1,
+      textTransform: 'uppercase'
+    }
+  }, c.name))), nodes.length === 0 ? React.createElement('div', {
+    style: {
+      flex: 1,
+      display: 'flex',
+      alignItems: 'center',
+      fontSize: 12,
+      color: CL.muted
+    }
+  }, 'No cards yet — start learning!') : React.createElement('div', {
+    style: {
+      width: '100%',
+      maxWidth: 500,
+      border: '2px solid ' + CL.primary,
+      background: CL.card,
+      boxShadow: '3px 3px 0 ' + CL.shadow,
+      overflow: 'hidden',
+      touchAction: 'none',
+      animation: an(.2),
+      opacity: 0
+    }
+  }, React.createElement('svg', {
+    ref: svgRef,
+    width: '100%',
+    viewBox: '0 0 ' + W + ' ' + H,
+    style: {
+      display: 'block'
+    },
+    onPointerDown: onSvgDown,
+    onPointerMove: onMove,
+    onPointerUp: onUp,
+    onPointerLeave: onUp,
+    onTouchMove: e => {
+      e.preventDefault();
+      onMove(e);
+    },
+    onTouchEnd: onUp
+  }, React.createElement('g', {
+    transform: 'translate(' + pan.x + ',' + pan.y + ') scale(' + zm + ')'
+  }, consts.map(c => React.createElement('text', {
+    key: c.id,
+    x: c.cx,
+    y: c.cy - 90,
+    textAnchor: 'middle',
+    fontSize: 11,
+    fill: CL.faint,
+    style: {
+      fontFamily: "'DotGothic16',monospace",
+      letterSpacing: 3,
+      textTransform: 'uppercase'
+    }
+  }, c.name)), edges.map((e, i) => React.createElement('line', {
+    key: i,
+    x1: e.sx,
+    y1: e.sy,
+    x2: e.tx,
+    y2: e.ty,
+    stroke: CL.pale,
+    strokeWidth: Math.max(.5, e.weight * .6),
+    opacity: Math.min(.2 + e.weight * .1, .6)
+  })), nodes.map(n => React.createElement(PixelNode, {
+    key: n.id,
+    x: n.x,
+    y: n.y,
+    size: 16,
+    status: n.status,
+    owner: n.owner,
+    isSel: sel && sel.id === n.id,
+    label: n.title,
+    onDown: e => onDown(e, n)
+  }))))), sel && sel.status !== 'dark' && React.createElement('div', {
+    style: {
+      width: 'calc(100% - 32px)',
+      maxWidth: 500,
+      border: '2px solid ' + CL.primary,
+      background: CL.card,
+      boxShadow: '3px 3px 0 ' + CL.shadow,
+      padding: '14px 16px',
+      marginTop: 8
+    }
+  }, React.createElement('div', {
+    style: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center'
+    }
+  }, React.createElement('div', null, React.createElement('div', {
+    style: {
+      fontSize: 9,
+      letterSpacing: 2,
+      color: CL.pale,
+      textTransform: 'uppercase',
+      marginBottom: 4
+    }
+  }, sel.owner === 'iris' ? 'LUX TAUGHT YOU' : 'YOU TAUGHT LUX'), React.createElement('div', {
+    style: {
+      fontSize: 16,
+      color: CL.dark
+    }
+  }, sel.title)), React.createElement(MasteryBar, {
+    level: sel.mastery_level || 0
+  })), React.createElement('div', {
+    style: {
+      display: 'flex',
+      gap: 8,
+      marginTop: 10
+    }
+  }, React.createElement(Btn, {
+    onClick: () => goTo('review'),
+    style: {
+      flex: 1,
+      padding: 7,
+      fontSize: 9
+    }
+  }, 'REVIEW'), React.createElement('button', {
+    onClick: () => setSel(null),
+    style: {
+      padding: '7px 10px',
+      border: '2px solid ' + CL.border,
+      background: CL.card,
+      color: CL.muted,
+      fontFamily: "'DotGothic16',monospace",
+      fontSize: 9,
+      cursor: 'pointer'
+    }
+  }, '×'))));
+}
+
+// ═══ LIBRARY ═══
+function LibraryPage({
+  goTo
+}) {
+  const [ld, setLd] = useState(false);
+  const [cards, setCards] = useState([]);
+  const [search, setSearch] = useState('');
+  const [filter, setFilter] = useState('ALL');
+  const [sort, setSort] = useState('NEWEST');
+  const [consts, setConsts] = useState(['ALL']);
+  useEffect(() => {
+    setTimeout(() => setLd(true), 100);
+    load();
+  }, []);
+  const load = async () => {
+    const [c, cs] = await Promise.all([api('cards'), api('constellations')]);
+    if (c && !c.error) setCards(c.filter(x => x.status !== 'empty'));
+    if (cs && !cs.error) setConsts(['ALL', ...cs.map(x => x.name)]);
+  };
+  let f = cards.filter(c => {
+    if (filter !== 'ALL' && (c.cue_constellations?.name || '') !== filter) return false;
+    if (search && !c.title.toLowerCase().includes(search.toLowerCase())) return false;
+    return true;
+  });
+  if (sort === 'MASTERY ↑') f.sort((a, b) => a.mastery_level - b.mastery_level);
+  if (sort === 'MASTERY ↓') f.sort((a, b) => b.mastery_level - a.mastery_level);
+  if (sort === 'REVIEW DUE') f.sort((a, b) => {
+    if (!a.next_review && !b.next_review) return 0;
+    if (!a.next_review) return 1;
+    if (!b.next_review) return -1;
+    return a.next_review.localeCompare(b.next_review);
+  });
+  const an = d => ld ? `su .4s ease-out ${d}s both` : 'none';
+  const sorts = ['NEWEST', 'MASTERY ↑', 'MASTERY ↓', 'REVIEW DUE'];
+  return React.createElement('div', {
+    style: {
+      flex: 1,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      padding: '0 16px'
+    }
+  }, React.createElement('style', null, '@keyframes su{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:translateY(0)}}'), React.createElement(TopBar, {
+    left: '← BACK',
+    center: 'LIBRARY',
+    right: 'MAP',
+    onLeft: () => goTo('today'),
+    onRight: () => goTo('starmap')
+  }), React.createElement('div', {
+    style: {
+      width: '100%',
+      maxWidth: 400,
+      marginBottom: 10,
+      animation: an(.05),
+      opacity: 0
+    }
+  }, React.createElement('input', {
+    value: search,
+    onChange: e => setSearch(e.target.value),
+    placeholder: 'Search cards...',
+    style: {
+      width: '100%',
+      padding: '8px 10px',
+      border: '2px solid ' + CL.primary,
+      background: CL.card,
+      fontFamily: "'DotGothic16',monospace",
+      fontSize: 11,
+      color: CL.primary,
+      outline: 'none',
+      boxSizing: 'border-box'
+    }
+  })), React.createElement('div', {
+    style: {
+      width: '100%',
+      maxWidth: 400,
+      display: 'flex',
+      gap: 0,
+      marginBottom: 8,
+      animation: an(.1),
+      opacity: 0
+    }
+  }, consts.map((c, i) => React.createElement('button', {
+    key: c,
+    onClick: () => setFilter(c),
+    style: {
+      flex: 1,
+      padding: '6px 4px',
+      border: '2px solid ' + CL.primary,
+      borderRight: i < consts.length - 1 ? 'none' : '2px solid ' + CL.primary,
+      background: filter === c ? CL.primary : CL.card,
+      color: filter === c ? CL.wash : CL.primary,
+      fontFamily: "'DotGothic16',monospace",
+      fontSize: 9,
+      letterSpacing: 1,
+      textTransform: 'uppercase',
+      cursor: 'pointer'
+    }
+  }, c))), React.createElement('div', {
+    style: {
+      width: '100%',
+      maxWidth: 400,
+      display: 'flex',
+      gap: 6,
+      marginBottom: 12,
+      animation: an(.15),
+      opacity: 0
+    }
+  }, sorts.map(s => React.createElement('button', {
+    key: s,
+    onClick: () => setSort(s),
+    style: {
+      padding: '4px 8px',
+      border: sort === s ? '1.5px solid ' + CL.primary : '1.5px solid ' + CL.faint,
+      background: sort === s ? CL.wash : 'transparent',
+      color: sort === s ? CL.primary : CL.muted,
+      fontFamily: "'DotGothic16',monospace",
+      fontSize: 8,
+      letterSpacing: 1,
+      textTransform: 'uppercase',
+      cursor: 'pointer'
+    }
+  }, s))), React.createElement('div', {
+    style: {
+      width: '100%',
+      maxWidth: 400,
+      fontSize: 9,
+      color: CL.muted,
+      letterSpacing: 1,
+      textTransform: 'uppercase',
+      marginBottom: 8,
+      animation: an(.2),
+      opacity: 0
+    }
+  }, f.length + ' CARD' + (f.length !== 1 ? 'S' : '')), React.createElement('div', {
+    style: {
+      width: '100%',
+      maxWidth: 400,
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 8,
+      animation: an(.25),
+      opacity: 0
+    }
+  }, f.map(card => React.createElement('div', {
+    key: card.id,
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 12,
+      padding: '12px 14px',
+      border: '2px solid ' + CL.primary,
+      background: CL.card,
+      boxShadow: '2px 2px 0 ' + CL.shadow,
+      cursor: 'pointer'
+    }
+  }, React.createElement('div', {
+    style: {
+      width: 12,
+      height: 12,
+      flexShrink: 0,
+      background: card.status === 'mastered' ? CL.primary : card.status === 'learning' ? CL.light : 'none',
+      border: card.status === 'dark' ? '1.5px dashed ' + CL.faint : '1px solid ' + (card.status === 'mastered' ? CL.dark : CL.mid)
+    }
+  }), React.createElement('div', {
+    style: {
+      flex: 1,
+      minWidth: 0
+    }
+  }, React.createElement('div', {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 6,
+      marginBottom: 3
+    }
+  }, React.createElement('div', {
+    style: {
+      fontSize: 13,
+      color: CL.dark,
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis'
+    }
+  }, card.title), card.created_for === 'lux' && React.createElement('span', {
+    style: {
+      fontSize: 8,
+      padding: '1px 5px',
+      border: '1px solid ' + CL.faint,
+      color: CL.pale,
+      letterSpacing: 1,
+      flexShrink: 0
+    }
+  }, 'LUX')), React.createElement('div', {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 8
+    }
+  }, React.createElement('span', {
+    style: {
+      fontSize: 8,
+      letterSpacing: 1,
+      color: CL.pale,
+      textTransform: 'uppercase'
+    }
+  }, card.cue_constellations?.name || ''), React.createElement('span', {
+    style: {
+      fontSize: 8,
+      color: CL.border
+    }
+  }, '·'), React.createElement('span', {
+    style: {
+      fontSize: 8,
+      color: CL.muted
+    }
+  }, card.date), card.next_review && React.createElement(React.Fragment, null, React.createElement('span', {
+    style: {
+      fontSize: 8,
+      color: CL.border
+    }
+  }, '·'), React.createElement('span', {
+    style: {
+      fontSize: 8,
+      color: CL.light,
+      letterSpacing: 1
+    }
+  }, 'REVIEW ' + card.next_review)))), React.createElement(MasteryBar, {
+    level: card.mastery_level
+  }))), f.length === 0 && React.createElement('div', {
+    style: {
+      textAlign: 'center',
+      padding: '40px 0',
+      fontSize: 11,
+      color: CL.muted
+    }
+  }, 'No cards found.')));
+}
+
+// ═══ APP SHELL ═══
+function CueApp() {
+  const [page, setPage] = useState(getBase() ? 'main' : 'connect');
+  return React.createElement('div', {
+    style: {
+      minHeight: '100vh',
+      background: CL.bg,
+      backgroundImage: 'radial-gradient(circle,#d8d8d8 1px,transparent 1px)',
+      backgroundSize: '16px 16px',
+      backgroundAttachment: 'fixed',
+      fontFamily: "'DotGothic16',monospace",
+      display: 'flex',
+      flexDirection: 'column'
+    }
+  }, page === 'connect' && React.createElement(ConnectPage, {
+    onConnect: () => setPage('main')
+  }), page === 'main' && React.createElement(MainPage, {
+    onEnter: () => setPage('today')
+  }), page === 'today' && React.createElement(TodayPage, {
+    goTo: setPage
+  }), page === 'review' && React.createElement(ReviewPage, {
+    goTo: setPage
+  }), page === 'starmap' && React.createElement(StarMapPage, {
+    goTo: setPage
+  }), page === 'library' && React.createElement(LibraryPage, {
+    goTo: setPage
+  }), React.createElement(Footer));
+}
+ReactDOM.render(React.createElement(CueApp), document.getElementById('root'));
+</script>
+</body>
+</html>
