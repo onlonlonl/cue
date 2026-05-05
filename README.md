@@ -8,18 +8,20 @@ Each day, one card for you, one card for Claude. You teach each other something 
 
 ## Features
 
-- **Daily flip card** — front side: Claude teaches you (concept / explanation / references); back side: you teach Claude (freeform)
-- **Spaced repetition** — forgetting curve drives review schedule, three question types (fill-in-the-blank, Feynman explanation, association)
-- **Star map** — knowledge graph that grows organically; mastered nodes glow, undiscovered ones wait as dark stars
-- **Card library** — search, filter by constellation, sort by mastery or review date
+- **Daily flip card** — front: Claude teaches you (concept / explanation / references with links); back: you teach Claude (freeform). Spring physics flip animation.
+- **Spaced repetition** — forgetting curve drives review schedule. Fill-in-the-blank, Feynman explanation, and association questions. Claude reviews and scores your answers asynchronously.
+- **Star map** — knowledge graph that grows organically. Mastered nodes glow blue, fully mastered nodes turn gold. Undiscovered dark stars suggest your next step. Pinch to zoom, drag nodes, rename constellations.
+- **Card library** — search, filter by constellation, sort by mastery or review date. Tap to expand full card details.
+- **Streak tracker** — pixel stars light up for every 7 consecutive days of activity.
+- **Mutual learning** — you can test Claude on what you taught, and Claude tests you on what it taught.
 
 ## How It Works
 
-1. Open Cue → connect your Supabase endpoint
+1. Open Cue → connect your Supabase URL (one time only)
 2. On the **Today** page, request a card or let Claude surprise you
 3. Flip the card to teach Claude something in return
-4. Claude reads your teaching via MCP and responds
-5. Review due cards when they surface
+4. Claude reads your teaching via MCP, responds, and generates review questions
+5. Review due cards when they surface — Claude scores asynchronously
 6. Watch the star map grow
 
 ## Tech Stack
@@ -37,6 +39,7 @@ Each day, one card for you, one card for Claude. You teach each other something 
 2. **Edge Function**: Deploy `supabase/edge-function.ts` with `verify_jwt: false`
 3. **Claude**: Add `CLAUDE_INSTRUCTIONS.md` to your Claude project
 4. **Deploy**: Upload `index.html` to a GitHub repo, enable Pages
+5. **Connect**: Open the page → enter your Supabase URL (`https://xxx.supabase.co`)
 
 ## File Structure
 
