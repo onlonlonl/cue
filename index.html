@@ -45,11 +45,7 @@ const {
 } = React;
 function getBase() {
   const h = window.location.hash.replace('#', '');
-  if (h) {
-    try { localStorage.setItem('cue_base', h); } catch(e) {}
-    return h;
-  }
-  try { return localStorage.getItem('cue_base') || null; } catch(e) { return null; }
+  return h || null;
 }
 async function api(path, opts = {}) {
   const base = getBase();
@@ -320,9 +316,7 @@ function ConnectPage({
     try {
       const r = await fetch(url.trim().replace(/\/$/, '') + '/functions/v1/cue/constellations');
       if (r.ok) {
-        var clean = url.trim();
-        window.location.hash = clean;
-        try { localStorage.setItem('cue_base', clean); } catch(e) {}
+        window.location.hash = url.trim();
         onConnect();
       } else setErr('COULD NOT CONNECT');
     } catch (e) {
@@ -483,7 +477,7 @@ function TodayPage({
     const cards = await api('cards?date=' + today());
     if (cards && !cards.error) {
       const fc = cards.find(c => c.created_for === 'iris' && c.status !== 'empty');
-      const bc = cards.find(c => c.created_for === 'lux' && c.status !== 'empty');
+      const bc = cards.find(c => c.created_for === 'lux');
       if (fc) setFront(fc);
       if (bc) setBack(bc);
     }
