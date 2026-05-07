@@ -477,9 +477,17 @@ function TodayPage({
     const cards = await api('cards?date=' + today());
     if (cards && !cards.error) {
       const fc = cards.find(c => c.created_for === 'iris' && c.status !== 'empty');
-      const bc = cards.find(c => c.created_for === 'lux');
       if (fc) setFront(fc);
-      if (bc) setBack(bc);
+      const bc = cards.find(c => c.created_for === 'lux');
+      if (bc) {
+        setBack(bc);
+      } else {
+        const all = await api('cards?for=lux');
+        if (all && !all.error) {
+          const pending = all.find(c => !c.iris_teaching);
+          if (pending) setBack(pending);
+        }
+      }
     }
   };
   const reqLearn = async topic => {
