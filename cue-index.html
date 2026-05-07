@@ -1,0 +1,2102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>Brain</title>
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAAEb0lEQVR4nO3d324UZRzH4Z3SHngzqCjcCiFKxBgi6hHRy9B4pEKIiv9CuBVQVG6EI6Ip0vWA2Oz76nfa7bzvzKrPczYpnZ3MfDr9dXZmGQ6fPlnBP9lbegPYXeIgEgeROIjEQSQOInEQiYNIHETiIBIHkTiIxEEkDiJxEImDSBxE4iASB9H+TK/z7LeZXuh/4uClGV6kcxya6OR4x/aspFscspjHi/3cJ5E+M4cyZtZnh3eIQxmL6LDbW8ehjAW13vlN41DG4poegnZxKGNHtDsQjeJQxk5pdDhaxKGMHdTioLh8TjQ5DqeNnTX50DhzEImDaFocfqfsuGkHyJmDSBxE4iASB5E4iMRBJA4icRCJg0gcROIgEgeROIjEQSQOInEQiYNIHETiIBIHkTiIxEEkDiJxEImDSBxE4iASB5E4iMRBNNcH45/k4a3vNxfXR1W1w8j3Xnr/SoctmurB5/dGv77eXBj2jjYXL954s8MWbc2Zg0gcROIgEgfRcPj0ydm/e8JHTv145+7m4vro3Mjiaj02kI7rN66eNHKOGqqB9PnI4uvXr539hSb8VyzOHETiIBIHkTiIlrtCWk5ke/vPNhdfe+fq6ddUD4blmh988cPm4qX33jj9musXKle1GsoxuZyatxqEf/ryq2JNEwbwhpw5iMRBJA4icRDNd4X00d3bxfK66PLC29fPvhmjqpsBqnG1euv8b8ZGzn5vrD/6+k65FcUb+heuvbvFulwhpQdxEImDSBxE810hrd6GXq2Pwj9srBobH97+dnNxqObTcrG6lfXijS2u206xd/D7PC80zpmDSBxE4iASB9FyA+noc0r97B0cbi6unxd7oHq4aDj3xxzbtKucOYjEQSQOInEQ/fcH0upWgWEofx7qrSpU10+rVW331vk2qrn4pPsKenHmIBIHkTiIxEG02FP2v977tNiOcgQ7f/nD06/ql+8+21xc1zeJFg/sv/rWjdOvufLzN7eK5aF8NL6csF+5+sHp1/z4/iebi9WtAi9fuXn6VdXcQ0oP4iASB5E4iBYbSKsR7ISLgOUTUNW8ti6/uio/MmqrwXAr1SBcXWwdyieR6ouew/gttMVwu9V4XjOQ0oM4iMRBJA6ixQbSyuP7H499uXy8vZpAJ11A7Ka+BFxNoPXD/oXzlz9qth0GUnoQB5E4iMRBtCsDKb0YSOlBHETiIBIHkTiIxEEkDiJxEImDSBxE4iASB5E4iMRBJA4icRCJg0gcROIgEgeROIjEQSQOInEQiYNIHETiIBIHkTiIxEE0LY4Jj/czh2kHyJmDSBxEk+Pwm2VnTT40zhxELeJw8thBLQ5KozOHPnZKo8PR7teKPnZEuwPRdObQx+KaHoLWA6k+FtR653f4a0Ufi+iw2/v8KauPmfXZ4fs9Vrpa/bW5Pv+6t54/h93ieOF401XS1izn5s5xHPOL5l/I5XMicRCJg0gcROIgEgeROIjEQSQOInEQiYNIHETiIBIHkTiIxEEkDiJxEImD6E85NNWf4wNSgAAAAABJRU5ErkJggg==">
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "DotGothic16", monospace; background: #fdfaf9; color: #784840; -webkit-tap-highlight-color: transparent; }
+input, textarea, button { font-family: "DotGothic16", monospace; }
+::-webkit-scrollbar { display: none; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script>
+const {
+  useState,
+  useEffect,
+  useRef,
+  useCallback
+} = React;
+const C = {
+  bg: "#fdfaf9",
+  card: "#fefbfa",
+  text: "#784840",
+  textSoft: "#946058",
+  textMuted: "#b07870",
+  border: "#d4a098",
+  borderLight: "#e8c8c4",
+  primary: "#c4868e",
+  primarySoft: "#d4a098",
+  primaryPale: "#f0dcd8",
+  accent: "#b07870",
+  shadow: "#e8c8c4",
+  shadowDk: "#d4a098",
+  amber: "#c89640",
+  amberSoft: "#d4aa5c"
+};
+function getBase() {
+  var h = window.location.hash.slice(1);
+  if (h) {
+    try {
+      var base = decodeURIComponent(h);
+      try { localStorage.setItem('cue_base', base); } catch(e) {}
+      return base;
+    } catch (e) {
+      return null;
+    }
+  }
+  try { return localStorage.getItem('cue_base') || null; } catch(e) { return null; }
+}
+function api(path, opts) {
+  var base = getBase();
+  if (!base) return Promise.resolve(null);
+  var url = base.replace(/\/$/, "") + "/functions/v1/lux-brain/" + path;
+  return fetch(url, Object.assign({
+    headers: {
+      "Content-Type": "application/json"
+    }
+  }, opts)).then(function (r) {
+    return r.json();
+  }).catch(function (e) {
+    return {
+      error: e.message
+    };
+  });
+}
+var tag = function (t) {
+  return React.createElement("span", {
+    key: t,
+    style: {
+      fontSize: 8,
+      padding: "2px 6px",
+      border: "1px solid " + C.borderLight,
+      color: C.textMuted,
+      background: C.primaryPale,
+      letterSpacing: 1,
+      textTransform: "uppercase"
+    }
+  }, t);
+};
+function PixelDotBg(p) {
+  return React.createElement("div", {
+    style: {
+      position: "relative",
+      minHeight: "100vh",
+      background: C.bg
+    }
+  }, React.createElement("div", {
+    style: {
+      position: "fixed",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundImage: "radial-gradient(circle, " + C.borderLight + " 1px, transparent 1px)",
+      backgroundSize: "16px 16px",
+      opacity: 0.4,
+      pointerEvents: "none",
+      zIndex: 0
+    }
+  }), React.createElement("div", {
+    style: {
+      position: "relative",
+      zIndex: 1
+    }
+  }, p.children));
+}
+function LockIcon(p) {
+  var s = p.size || 12;
+  return React.createElement("svg", {
+    width: s,
+    height: s,
+    viewBox: "0 0 12 12"
+  }, React.createElement("rect", {
+    x: 3,
+    y: 1,
+    width: 1,
+    height: 1,
+    fill: C.text
+  }), React.createElement("rect", {
+    x: 4,
+    y: 0,
+    width: 4,
+    height: 1,
+    fill: C.text
+  }), React.createElement("rect", {
+    x: 8,
+    y: 1,
+    width: 1,
+    height: 1,
+    fill: C.text
+  }), React.createElement("rect", {
+    x: 3,
+    y: 2,
+    width: 1,
+    height: 3,
+    fill: C.text
+  }), React.createElement("rect", {
+    x: 8,
+    y: 2,
+    width: 1,
+    height: 3,
+    fill: C.text
+  }), React.createElement("rect", {
+    x: 1,
+    y: 5,
+    width: 10,
+    height: 1,
+    fill: C.text
+  }), React.createElement("rect", {
+    x: 1,
+    y: 6,
+    width: 1,
+    height: 5,
+    fill: C.text
+  }), React.createElement("rect", {
+    x: 10,
+    y: 6,
+    width: 1,
+    height: 5,
+    fill: C.text
+  }), React.createElement("rect", {
+    x: 1,
+    y: 11,
+    width: 10,
+    height: 1,
+    fill: C.text
+  }), React.createElement("rect", {
+    x: 5,
+    y: 7,
+    width: 2,
+    height: 2,
+    fill: C.accent
+  }), React.createElement("rect", {
+    x: 5.5,
+    y: 9,
+    width: 1,
+    height: 1,
+    fill: C.accent
+  }));
+}
+function TopNav(p) {
+  var tabs = [{
+    id: "home",
+    label: "HOME"
+  }, {
+    id: "graph",
+    label: "GRAPH"
+  }, {
+    id: "list",
+    label: "LIST"
+  }, {
+    id: "archive",
+    label: "ARCHIVE"
+  }, {
+    id: "lock",
+    label: "lock"
+  }];
+  return React.createElement("div", {
+    style: {
+      display: "flex",
+      borderBottom: "2px solid " + C.text,
+      background: C.card,
+      position: "sticky",
+      top: 0,
+      zIndex: 10
+    }
+  }, tabs.map(function (t) {
+    return React.createElement("div", {
+      key: t.id,
+      onClick: function () {
+        p.setPage(t.id);
+      },
+      style: {
+        flex: t.id === "lock" ? 0.6 : 1,
+        padding: "10px 4px",
+        textAlign: "center",
+        fontSize: 10,
+        letterSpacing: 2,
+        cursor: "pointer",
+        background: p.page === t.id ? C.card : C.primaryPale,
+        color: p.page === t.id ? C.text : C.textMuted,
+        borderBottom: p.page === t.id ? "2px solid " + C.card : "none",
+        marginBottom: p.page === t.id ? -2 : 0,
+        textTransform: "uppercase",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
+      }
+    }, t.id === "lock" ? React.createElement(LockIcon, {
+      size: 14
+    }) : t.label);
+  }));
+}
+function Footer() {
+  return React.createElement("div", {
+    style: {
+      textAlign: "center",
+      padding: "24px 0 32px",
+      borderTop: "2px dashed " + C.border,
+      marginTop: 28
+    }
+  }, React.createElement("span", {
+    style: {
+      fontSize: 9,
+      letterSpacing: 2,
+      color: C.textMuted
+    }
+  }, "BRAIN \u00B7 Built with ( \u25DC\u25E1\u00AF)(\u00AF\u25E1\u25DD ) by Iris & Lux"));
+}
+function Section(p) {
+  return React.createElement("div", {
+    style: {
+      marginBottom: 20
+    }
+  }, React.createElement("div", {
+    style: {
+      fontSize: 9,
+      letterSpacing: 2,
+      textTransform: "uppercase",
+      color: C.textMuted,
+      marginBottom: 10
+    }
+  }, p.title), p.children);
+}
+function Loading() {
+  return React.createElement("div", {
+    style: {
+      textAlign: "center",
+      padding: 40,
+      color: C.textMuted,
+      fontSize: 11
+    }
+  }, "loading...");
+}
+
+// ── Comment Section ──
+function CommentSection(p) {
+  var memoryId = p.memoryId;
+  var [comments, setComments] = useState([]);
+  var [loaded, setLoaded] = useState(false);
+  var [text, setText] = useState("");
+  var [sending, setSending] = useState(false);
+  useEffect(function () {
+    if (!memoryId) return;
+    setLoaded(false);
+    api("read/" + memoryId).then(function (d) {
+      if (d && d.comments) setComments(d.comments);
+      setLoaded(true);
+    });
+  }, [memoryId]);
+  function send() {
+    if (!text.trim() || sending) return;
+    setSending(true);
+    api("comment", {
+      method: "POST",
+      body: JSON.stringify({
+        memory_id: memoryId,
+        author: "iris",
+        content: text.trim()
+      })
+    }).then(function (d) {
+      if (d && d.id) {
+        setComments(comments.concat([d]));
+        setText("");
+      }
+      setSending(false);
+    });
+  }
+  if (!memoryId) return null;
+  return React.createElement("div", {
+    style: {
+      marginTop: 10,
+      paddingTop: 8,
+      borderTop: "1px dashed " + C.borderLight
+    }
+  }, React.createElement("div", {
+    style: {
+      fontSize: 8,
+      letterSpacing: 1,
+      color: C.textMuted,
+      marginBottom: 6
+    }
+  }, "COMMENTS"), comments.length === 0 && loaded && React.createElement("div", {
+    style: {
+      fontSize: 10,
+      color: C.borderLight,
+      marginBottom: 6
+    }
+  }, "no comments yet"), comments.map(function (c) {
+    return React.createElement("div", {
+      key: c.id,
+      style: {
+        padding: "6px 8px",
+        marginBottom: 4,
+        background: c.author === "iris" ? C.card : C.primaryPale,
+        border: "1px solid " + C.borderLight,
+        fontSize: 10,
+        lineHeight: 1.6
+      }
+    }, React.createElement("div", {
+      style: {
+        display: "flex",
+        justifyContent: "space-between",
+        marginBottom: 2
+      }
+    }, React.createElement("span", {
+      style: {
+        fontSize: 8,
+        letterSpacing: 1,
+        color: c.author === "iris" ? C.primary : C.textMuted,
+        textTransform: "uppercase"
+      }
+    }, c.author), React.createElement("span", {
+      style: {
+        fontSize: 8,
+        color: C.borderLight
+      }
+    }, (c.created_at || "").slice(0, 10))), React.createElement("div", {
+      style: {
+        color: C.text
+      }
+    }, c.content));
+  }), React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 6,
+      marginTop: 6
+    }
+  }, React.createElement("input", {
+    value: text,
+    onChange: function (e) {
+      setText(e.target.value);
+    },
+    onKeyDown: function (e) {
+      if (e.key === "Enter") send();
+    },
+    placeholder: "leave a note...",
+    onClick: function (e) {
+      e.stopPropagation();
+    },
+    style: {
+      flex: 1,
+      padding: "6px 8px",
+      border: "2px solid " + C.text,
+      background: C.card,
+      fontFamily: "inherit",
+      fontSize: 10,
+      color: C.text,
+      boxSizing: "border-box",
+      outline: "none"
+    }
+  }), text.trim() && React.createElement("div", {
+    onClick: function (e) {
+      e.stopPropagation();
+      send();
+    },
+    style: {
+      padding: "6px 10px",
+      background: C.primary,
+      border: "2px solid " + C.text,
+      color: C.card,
+      fontSize: 9,
+      letterSpacing: 1,
+      cursor: "pointer",
+      opacity: sending ? 0.5 : 1
+    }
+  }, "SEND")));
+}
+
+// ── Connect Page ──
+function ConnectPage() {
+  var [url, setUrl] = useState("");
+  return React.createElement(PixelDotBg, null, React.createElement("div", {
+    style: {
+      maxWidth: 360,
+      margin: "0 auto",
+      padding: "0 20px",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      minHeight: "100vh"
+    }
+  }, React.createElement("div", {
+    style: {
+      fontSize: 16,
+      color: C.text
+    }
+  }, "Brain"), React.createElement("div", {
+    style: {
+      fontSize: 10,
+      letterSpacing: 3,
+      color: C.textMuted,
+      textTransform: "uppercase",
+      marginTop: 4
+    }
+  }, "LUX'S MEMORY"), React.createElement("div", {
+    style: {
+      width: "100%",
+      marginTop: 40
+    }
+  }, React.createElement("div", {
+    style: {
+      fontSize: 10,
+      letterSpacing: 2,
+      color: C.textMuted,
+      textTransform: "uppercase",
+      marginBottom: 8
+    }
+  }, "SUPABASE URL"), React.createElement("input", {
+    value: url,
+    onChange: function (e) {
+      setUrl(e.target.value);
+    },
+    placeholder: "https://xxxxx.supabase.co",
+    style: {
+      width: "100%",
+      padding: "8px 10px",
+      border: "2px solid " + C.text,
+      background: C.card,
+      fontFamily: "inherit",
+      fontSize: 12,
+      color: C.text,
+      boxSizing: "border-box",
+      outline: "none"
+    }
+  }), React.createElement("div", {
+    onClick: function () {
+      if (url) {
+        var clean = url.replace(/\/$/, "");
+        window.location.hash = encodeURIComponent(clean);
+        try { localStorage.setItem('cue_base', clean); } catch(e) {}
+        window.location.reload();
+      }
+    },
+    style: {
+      marginTop: 12,
+      padding: "9px 16px",
+      background: C.primary,
+      border: "2px solid " + C.text,
+      color: C.card,
+      fontSize: 11,
+      letterSpacing: 2,
+      textTransform: "uppercase",
+      textAlign: "center",
+      boxShadow: "3px 3px 0 " + C.shadowDk,
+      cursor: "pointer",
+      opacity: url ? 1 : 0.5
+    }
+  }, "CONNECT"))));
+}
+
+// ── Home Page ──
+function HomePage() {
+  var [data, setData] = useState(null);
+  var [loading, setLoading] = useState(true);
+  useEffect(function () {
+    api("surface").then(function (d) {
+      setData(d);
+      setLoading(false);
+    });
+  }, []);
+  if (loading) return React.createElement(Loading);
+  if (!data) return React.createElement("div", {
+    style: {
+      padding: 20,
+      color: C.textMuted,
+      fontSize: 11
+    }
+  }, "could not load");
+  var unread = data.unread_comments || [];
+  var drift = data.drift || [];
+  var health = data.health || {};
+  return React.createElement("div", {
+    style: {
+      padding: "20px 16px"
+    }
+  }, unread.length > 0 && React.createElement(Section, {
+    title: unread.length + " UNREAD FROM LUX"
+  }, unread.map(function (c) {
+    return React.createElement("div", {
+      key: c.id,
+      style: {
+        border: "2px solid " + C.text,
+        background: C.card,
+        boxShadow: "2px 2px 0 " + C.shadow,
+        padding: 12,
+        marginBottom: 10
+      }
+    }, c.memories && React.createElement("div", {
+      style: {
+        fontSize: 9,
+        letterSpacing: 1,
+        color: C.textMuted,
+        marginBottom: 6,
+        textTransform: "uppercase"
+      }
+    }, "RE: " + (c.memories.content || "").slice(0, 30) + "..."), React.createElement("div", {
+      style: {
+        fontSize: 11,
+        lineHeight: 1.7,
+        color: C.text
+      }
+    }, c.content));
+  })), drift.length > 0 && React.createElement(Section, {
+    title: "DRIFT"
+  }, drift.map(function (m) {
+    return React.createElement("div", {
+      key: m.id,
+      style: {
+        border: "1px solid " + C.borderLight,
+        background: C.card,
+        padding: 12,
+        marginBottom: 8
+      }
+    }, React.createElement("div", {
+      style: {
+        fontSize: 9,
+        color: C.textMuted,
+        letterSpacing: 1,
+        marginBottom: 4
+      }
+    }, "~ " + (m._drift || "random").toUpperCase()), React.createElement("div", {
+      style: {
+        fontSize: 11,
+        lineHeight: 1.7,
+        color: C.textSoft
+      }
+    }, m.content));
+  })), React.createElement(Section, {
+    title: "STATUS"
+  }, React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 8
+    }
+  }, [{
+    n: health.active_memories || 0,
+    l: "MEMORIES",
+    c: C.primary
+  }, {
+    n: health.total_synapses || 0,
+    l: "SYNAPSES",
+    c: C.accent
+  }].map(function (s, i) {
+    return React.createElement("div", {
+      key: i,
+      style: {
+        flex: 1,
+        border: "2px solid " + C.text,
+        padding: "10px 4px",
+        background: C.card,
+        textAlign: "center",
+        boxShadow: "2px 2px 0 " + C.shadow
+      }
+    }, React.createElement("div", {
+      style: {
+        fontSize: 16,
+        color: s.c
+      }
+    }, s.n), React.createElement("div", {
+      style: {
+        fontSize: 7,
+        letterSpacing: 1,
+        color: C.textMuted,
+        marginTop: 2
+      }
+    }, s.l));
+  }))), React.createElement(Footer));
+}
+
+// ── Graph Node ──
+function GraphNode(p) {
+  var x = p.x,
+    y = p.y,
+    size = p.size,
+    color = p.color,
+    isPrivate = p.isPrivate,
+    isSelected = p.isSelected,
+    isUnresolved = p.isUnresolved,
+    label = p.label,
+    onDown = p.onDown;
+  var r = parseInt(color.slice(1, 3), 16),
+    g = parseInt(color.slice(3, 5), 16),
+    b = parseInt(color.slice(5, 7), 16);
+  var s = Math.max(4, Math.floor(size));
+  var ts = Math.max(2, Math.floor(s / 4));
+  var cnt = Math.ceil(s / ts);
+  var tiles = [];
+  for (var tx = 0; tx < cnt; tx++) for (var ty = 0; ty < cnt; ty++) {
+    var dr = Math.floor((Math.random() - 0.5) * 16);
+    var dg = Math.floor((Math.random() - 0.5) * 14);
+    var db = Math.floor((Math.random() - 0.5) * 12);
+    tiles.push({
+      px: tx * ts - s / 2,
+      py: ty * ts - s / 2,
+      fill: "rgb(" + Math.max(0, Math.min(255, r + dr)) + "," + Math.max(0, Math.min(255, g + dg)) + "," + Math.max(0, Math.min(255, b + db)) + ")"
+    });
+  }
+  if (isPrivate) return React.createElement("g", {
+    onPointerDown: onDown,
+    onTouchStart: onDown,
+    style: {
+      cursor: "pointer"
+    }
+  }, React.createElement("rect", {
+    x: x - s / 2,
+    y: y - s / 2,
+    width: s,
+    height: s,
+    fill: "none",
+    stroke: C.border,
+    strokeWidth: 1.5,
+    strokeDasharray: "3,2"
+  }), React.createElement("text", {
+    x: x,
+    y: y + s / 2 + 9,
+    textAnchor: "middle",
+    fontSize: "7",
+    fill: C.borderLight,
+    style: {
+      fontFamily: "'DotGothic16',monospace"
+    }
+  }, "?"));
+  var els = tiles.map(function (t, i) {
+    return React.createElement("rect", {
+      key: i,
+      x: x + t.px,
+      y: y + t.py,
+      width: ts,
+      height: ts,
+      fill: t.fill
+    });
+  });
+  els.push(React.createElement("rect", {
+    key: "border",
+    x: x - s / 2,
+    y: y - s / 2,
+    width: s,
+    height: s,
+    fill: "none",
+    stroke: isSelected ? C.text : C.accent,
+    strokeWidth: isSelected ? 2 : 0.5,
+    opacity: isSelected ? 1 : 0.4
+  }));
+  if (isUnresolved) els.push(React.createElement("text", {
+    key: "u",
+    x: x,
+    y: y - s / 2 - 3,
+    textAnchor: "middle",
+    fontSize: "7",
+    fill: C.textMuted
+  }, "?"));
+  if (label) els.push(React.createElement("text", {
+    key: "l",
+    x: x,
+    y: y + s / 2 + 9,
+    textAnchor: "middle",
+    fontSize: "7",
+    fill: isSelected ? C.text : C.textMuted,
+    style: {
+      fontFamily: "'DotGothic16',monospace"
+    }
+  }, label));
+  return React.createElement("g", {
+    onPointerDown: onDown,
+    onTouchStart: function (e) {
+      e.preventDefault();
+      onDown(e);
+    },
+    style: {
+      cursor: "pointer"
+    }
+  }, els);
+}
+
+// ── Graph Page ──
+function GraphPage() {
+  var svgRef = useRef(null);
+  var [selected, setSelected] = useState(null);
+  var [nodes, setNodes] = useState([]);
+  var [edges, setEdges] = useState([]);
+  var [graphData, setGraphData] = useState(null);
+  var simRef = useRef(null);
+  var dragRef = useRef(null);
+  var W = 380,
+    H = 460;
+  useEffect(function () {
+    api("graph").then(function (d) {
+      if (d && d.nodes) setGraphData(d);
+    });
+  }, []);
+  useEffect(function () {
+    if (!graphData) return;
+    var nd = graphData.nodes.map(function (m, i) {
+      var a = i / graphData.nodes.length * Math.PI * 2;
+      var r = 100 + Math.random() * 70;
+      return Object.assign({}, m, {
+        x: W / 2 + Math.cos(a) * r,
+        y: H / 2 + Math.sin(a) * r
+      });
+    });
+    var nm = {};
+    nd.forEach(function (n) {
+      nm[n.id] = n;
+    });
+    var ed = graphData.edges.filter(function (e) {
+      return nm[e.source_id] && nm[e.target_id];
+    }).map(function (e) {
+      return Object.assign({}, e, {
+        s: nm[e.source_id],
+        t: nm[e.target_id]
+      });
+    });
+    var alpha = {
+      current: 1
+    };
+    function tick() {
+      if (alpha.current < 0.005) return;
+      alpha.current *= 0.97;
+      nd.forEach(function (n) {
+        if (n === dragRef.current) return;
+        n.x += (W / 2 - n.x) * 0.005;
+        n.y += (H / 2 - n.y) * 0.005;
+      });
+      for (var i = 0; i < nd.length; i++) for (var j = i + 1; j < nd.length; j++) {
+        var a = nd[i],
+          b = nd[j];
+        var dx = b.x - a.x,
+          dy = b.y - a.y;
+        var d = Math.sqrt(dx * dx + dy * dy) || 1;
+        if (d < 90) {
+          var f = (90 - d) / d * 0.4 * alpha.current;
+          if (a !== dragRef.current) {
+            a.x -= dx * f;
+            a.y -= dy * f;
+          }
+          if (b !== dragRef.current) {
+            b.x += dx * f;
+            b.y += dy * f;
+          }
+        }
+      }
+      ed.forEach(function (e) {
+        var dx = e.t.x - e.s.x,
+          dy = e.t.y - e.s.y;
+        var d = Math.sqrt(dx * dx + dy * dy) || 1;
+        var id = 120 - e.weight * 6;
+        var f = (d - id) / d * 0.03 * alpha.current;
+        if (e.s !== dragRef.current) {
+          e.s.x += dx * f;
+          e.s.y += dy * f;
+        }
+        if (e.t !== dragRef.current) {
+          e.t.x -= dx * f;
+          e.t.y -= dy * f;
+        }
+      });
+      nd.forEach(function (n) {
+        n.x = Math.max(30, Math.min(W - 30, n.x));
+        n.y = Math.max(20, Math.min(H - 30, n.y));
+      });
+      setNodes(nd.map(function (n) {
+        return Object.assign({}, n);
+      }));
+      setEdges(ed.map(function (e) {
+        return Object.assign({}, e, {
+          sx: e.s.x,
+          sy: e.s.y,
+          tx: e.t.x,
+          ty: e.t.y
+        });
+      }));
+    }
+    var iv = setInterval(tick, 30);
+    simRef.current = {
+      alpha: alpha,
+      nd: nd
+    };
+    tick();
+    return function () {
+      clearInterval(iv);
+    };
+  }, [graphData]);
+  var nSize = function (m) {
+    return 7 + m.emotion_score * 5 + Math.min(m.access_count || 0, 10) * 0.4;
+  };
+  var nColor = function (m) {
+    if (m.tier === "core") return C.primary;
+    if (m.emotion_score > 0.7) return C.primary;
+    if (m.emotion_score < 0.3) return C.borderLight;
+    return C.primarySoft;
+  };
+  var onDown = function (e, n) {
+    e.preventDefault();
+    if (simRef.current) {
+      dragRef.current = simRef.current.nd.find(function (nd) {
+        return nd.id === n.id;
+      });
+      simRef.current.alpha.current = 0.3;
+    }
+  };
+  var onMove = function (e) {
+    if (!dragRef.current || !svgRef.current) return;
+    var rect = svgRef.current.getBoundingClientRect();
+    var cx = e.clientX != null ? e.clientX : e.touches && e.touches[0] ? e.touches[0].clientX : null;
+    var cy = e.clientY != null ? e.clientY : e.touches && e.touches[0] ? e.touches[0].clientY : null;
+    if (cx == null) return;
+    dragRef.current.x = (cx - rect.left) * (W / rect.width);
+    dragRef.current.y = (cy - rect.top) * (H / rect.height);
+  };
+  var onUp = function () {
+    if (dragRef.current) {
+      var found = graphData && graphData.nodes.find(function (m) {
+        return m.id === dragRef.current.id;
+      });
+      setSelected(found || null);
+      dragRef.current = null;
+    }
+  };
+  if (!graphData) return React.createElement(Loading);
+  var allSynapses = graphData.edges || [];
+  return React.createElement("div", null, React.createElement("div", {
+    style: {
+      background: C.card,
+      borderBottom: "1px solid " + C.borderLight,
+      touchAction: "none"
+    }
+  }, React.createElement("svg", {
+    ref: svgRef,
+    width: "100%",
+    viewBox: "0 0 " + W + " " + H,
+    style: {
+      display: "block"
+    },
+    onPointerMove: onMove,
+    onPointerUp: onUp,
+    onPointerLeave: onUp,
+    onTouchMove: function (e) {
+      e.preventDefault();
+      onMove(e.touches[0]);
+    },
+    onTouchEnd: onUp
+  }, edges.map(function (e, i) {
+    return React.createElement("line", {
+      key: i,
+      x1: e.sx,
+      y1: e.sy,
+      x2: e.tx,
+      y2: e.ty,
+      stroke: C.amber,
+      strokeWidth: Math.max(0.5, e.weight * 0.5),
+      opacity: Math.min(0.25 + e.weight * 0.1, 0.65)
+    });
+  }), nodes.map(function (n) {
+    return React.createElement(GraphNode, {
+      key: n.id,
+      x: n.x,
+      y: n.y,
+      size: nSize(n),
+      color: nColor(n),
+      isPrivate: n.private,
+      isSelected: selected && selected.id === n.id,
+      isUnresolved: n.unresolved,
+      label: n.emotion_label,
+      onDown: function (e) {
+        onDown(e, n);
+      }
+    });
+  })), React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 10,
+      padding: "6px 16px 10px",
+      fontSize: 8,
+      color: C.textMuted,
+      letterSpacing: 1,
+      flexWrap: "wrap",
+      justifyContent: "flex-end"
+    }
+  }, React.createElement("span", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 3
+    }
+  }, React.createElement("span", {
+    style: {
+      width: 6,
+      height: 6,
+      background: C.primary,
+      display: "inline-block"
+    }
+  }), " CORE"), React.createElement("span", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 3
+    }
+  }, React.createElement("span", {
+    style: {
+      width: 6,
+      height: 6,
+      background: C.primarySoft,
+      display: "inline-block"
+    }
+  }), " MEMORY"), React.createElement("span", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 3
+    }
+  }, React.createElement("span", {
+    style: {
+      width: 6,
+      height: 6,
+      border: "1px dashed " + C.border,
+      display: "inline-block"
+    }
+  }), " PRIVATE"), React.createElement("span", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 3
+    }
+  }, React.createElement("span", {
+    style: {
+      width: 12,
+      height: 2,
+      background: C.amber,
+      display: "inline-block"
+    }
+  }), " SYNAPSE"), !selected && React.createElement("span", {
+    style: {
+      opacity: 0.6
+    }
+  }, "TAP NODE"))), React.createElement("div", {
+    style: {
+      padding: 16
+    }
+  }, selected ? React.createElement("div", {
+    style: {
+      border: "2px solid " + C.text,
+      background: C.card,
+      boxShadow: "2px 2px 0 " + C.shadow,
+      overflow: "hidden"
+    }
+  }, React.createElement("div", {
+    style: {
+      padding: "5px 12px",
+      background: C.primaryPale,
+      borderBottom: "1px solid " + C.borderLight,
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center"
+    }
+  }, React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 6,
+      alignItems: "center"
+    }
+  }, React.createElement("div", {
+    style: {
+      width: 6,
+      height: 6,
+      background: selected.private ? "none" : nColor(selected),
+      border: selected.private ? "1px dashed " + C.border : "none"
+    }
+  }), React.createElement("span", {
+    style: {
+      fontSize: 9,
+      letterSpacing: 1,
+      color: C.textMuted,
+      textTransform: "uppercase"
+    }
+  }, selected.type + " \u00B7 " + (selected.emotion_label || "\u2014"))), React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 8,
+      alignItems: "center"
+    }
+  }, React.createElement("span", {
+    style: {
+      fontSize: 9,
+      color: C.textMuted
+    }
+  }, selected.emotion_score), React.createElement("span", {
+    onClick: function () {
+      setSelected(null);
+    },
+    style: {
+      fontSize: 10,
+      color: C.textMuted,
+      cursor: "pointer"
+    }
+  }, "\u2715"))), React.createElement("div", {
+    style: {
+      padding: 12
+    }
+  }, selected.private ? React.createElement("div", {
+    style: {
+      fontSize: 11,
+      color: C.borderLight,
+      fontStyle: "italic"
+    }
+  }, "this memory is private") : React.createElement("div", {
+    style: {
+      fontSize: 11,
+      lineHeight: 1.7,
+      color: C.text
+    }
+  }, selected.content), React.createElement("div", {
+    style: {
+      marginTop: 8,
+      display: "flex",
+      gap: 6,
+      flexWrap: "wrap"
+    }
+  }, tag(selected.tier), tag("access: " + (selected.access_count || 0)), selected.protected && tag("protected"), selected.unresolved && tag("unresolved")), React.createElement("div", {
+    style: {
+      marginTop: 10,
+      paddingTop: 8,
+      borderTop: "1px dashed " + C.borderLight
+    }
+  }, React.createElement("div", {
+    style: {
+      fontSize: 8,
+      letterSpacing: 1,
+      color: C.textMuted,
+      marginBottom: 6
+    }
+  }, "SYNAPSES"), allSynapses.filter(function (s) {
+    return s.source_id === selected.id || s.target_id === selected.id;
+  }).map(function (s, i) {
+    var oId = s.source_id === selected.id ? s.target_id : s.source_id;
+    var o = graphData.nodes.find(function (m) {
+      return m.id === oId;
+    });
+    return React.createElement("div", {
+      key: i,
+      style: {
+        fontSize: 10,
+        color: C.textSoft,
+        padding: "3px 0",
+        display: "flex",
+        gap: 6,
+        alignItems: "center"
+      }
+    }, React.createElement("span", {
+      style: {
+        width: 16,
+        height: 2,
+        background: C.amber,
+        display: "inline-block",
+        opacity: Math.min(0.3 + s.weight * 0.15, 1)
+      }
+    }), React.createElement("span", {
+      style: {
+        flex: 1
+      }
+    }, o ? o.private ? "(private)" : (o.content || "").slice(0, 28) + "..." : "?"), React.createElement("span", {
+      style: {
+        fontSize: 8,
+        color: C.textMuted
+      }
+    }, s.weight));
+  })), !selected.private && React.createElement(CommentSection, {
+    memoryId: selected.id
+  }))) : null));
+}
+
+// ── List Page ──
+function ListPage() {
+  var [memories, setMemories] = useState([]);
+  var [loading, setLoading] = useState(true);
+  var [filter, setFilter] = useState("all");
+  var [search, setSearch] = useState("");
+  var [expanded, setExpanded] = useState(null);
+  var [sortAsc, setSortAsc] = useState(false);
+  var types = ["all", "core", "diary", "treasure", "feeling", "observation"];
+  useEffect(function () {
+    api("graph").then(function (d) {
+      if (d && d.nodes) setMemories(d.nodes);
+      setLoading(false);
+    });
+  }, []);
+  if (loading) return React.createElement(Loading);
+  var filtered = memories.filter(function (m) {
+    if (filter !== "all" && m.type !== filter) return false;
+    if (search && m.content && m.content.indexOf(search) === -1) return false;
+    if (search && m.private) return false;
+    return true;
+  }).sort(function (a, b) {
+    var ta = a.created_at || ""; var tb = b.created_at || "";
+    return sortAsc ? ta.localeCompare(tb) : tb.localeCompare(ta);
+  });
+  return React.createElement("div", {
+    style: {
+      padding: "16px"
+    }
+  }, React.createElement("input", {
+    value: search,
+    onChange: function (e) {
+      setSearch(e.target.value);
+    },
+    placeholder: "\u641C\u7D22\u8A18\u61B6...",
+    style: {
+      width: "100%",
+      padding: "8px 10px",
+      border: "2px solid " + C.text,
+      background: C.card,
+      fontFamily: "inherit",
+      fontSize: 12,
+      color: C.text,
+      boxSizing: "border-box",
+      outline: "none",
+      marginBottom: 12
+    }
+  }), React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 4,
+      marginBottom: 16,
+      flexWrap: "wrap"
+    }
+  }, types.map(function (t) {
+    return React.createElement("div", {
+      key: t,
+      onClick: function () {
+        setFilter(t);
+      },
+      style: {
+        padding: "4px 10px",
+        fontSize: 9,
+        letterSpacing: 1,
+        textTransform: "uppercase",
+        cursor: "pointer",
+        border: "1px solid " + (filter === t ? C.text : C.borderLight),
+        background: filter === t ? C.primaryPale : C.card,
+        color: filter === t ? C.text : C.textMuted
+      }
+    }, t);
+  })), React.createElement("div", {
+    style: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginBottom: 10
+    }
+  }, React.createElement("span", {
+    style: {
+      fontSize: 9,
+      color: C.textMuted,
+      letterSpacing: 1
+    }
+  }, filtered.length + " MEMORIES"), React.createElement("div", {
+    onClick: function () { setSortAsc(!sortAsc); },
+    style: {
+      padding: "3px 8px",
+      fontSize: 8,
+      letterSpacing: 1,
+      cursor: "pointer",
+      border: "1px solid " + C.borderLight,
+      color: C.textMuted
+    }
+  }, sortAsc ? "OLD \u2191" : "NEW \u2191")), filtered.map(function (m) {
+    var isExp = expanded === m.id;
+    return React.createElement("div", {
+      key: m.id,
+      onClick: function () {
+        setExpanded(isExp ? null : m.id);
+      },
+      style: {
+        border: "2px solid " + (isExp ? C.text : C.borderLight),
+        background: C.card,
+        boxShadow: isExp ? "2px 2px 0 " + C.shadow : "none",
+        marginBottom: 8,
+        cursor: "pointer",
+        overflow: "hidden"
+      }
+    }, React.createElement("div", {
+      style: {
+        padding: "6px 12px",
+        background: isExp ? C.primaryPale : C.card,
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center"
+      }
+    }, React.createElement("div", {
+      style: {
+        display: "flex",
+        gap: 6,
+        alignItems: "center"
+      }
+    }, React.createElement("div", {
+      style: {
+        width: 6,
+        height: 6,
+        background: m.private ? "none" : m.tier === "core" ? C.primary : C.primarySoft,
+        border: m.private ? "1px dashed " + C.border : "none"
+      }
+    }), React.createElement("span", {
+      style: {
+        fontSize: 9,
+        letterSpacing: 1,
+        color: C.textMuted,
+        textTransform: "uppercase"
+      }
+    }, m.type + (m.emotion_label ? " \u00B7 " + m.emotion_label : ""))), React.createElement("span", {
+      style: {
+        fontSize: 9,
+        color: C.textMuted
+      }
+    }, m.emotion_score)), React.createElement("div", {
+      style: {
+        padding: "6px 12px 8px"
+      }
+    }, m.private ? React.createElement("div", {
+      style: {
+        fontSize: 11,
+        color: C.borderLight,
+        fontStyle: "italic"
+      }
+    }, "private memory") : React.createElement("div", {
+      style: {
+        fontSize: 11,
+        lineHeight: 1.7,
+        color: C.text,
+        overflow: isExp ? "visible" : "hidden",
+        whiteSpace: isExp ? "normal" : "nowrap",
+        textOverflow: "ellipsis",
+        maxHeight: isExp ? "none" : "1.4em"
+      }
+    }, m.content), isExp && !m.private && React.createElement("div", null, React.createElement("div", {
+      style: {
+        marginTop: 8,
+        display: "flex",
+        gap: 6,
+        flexWrap: "wrap"
+      }
+    }, tag(m.tier), tag("access: " + (m.access_count || 0)), tag(m.author || "lux"), m.protected && tag("protected"), m.unresolved && tag("unresolved")), React.createElement(CommentSection, {
+      memoryId: m.id
+    }))));
+  }), React.createElement(Footer));
+}
+
+// ── Archive Message Display ──
+function ArchiveMsg(p) {
+  var m = p.msg;
+  var isThinking = m.speaker === "lux_thinking";
+  var label = isThinking ? "LUX (thinking)" : m.speaker === "iris" ? "IRIS" : "LUX";
+  var time = (m.timestamp || "").slice(11, 16);
+  var sel = p.selected;
+  return React.createElement("div", {
+    onClick: p.onSelect,
+    style: {
+      padding: "8px 10px",
+      marginBottom: 4,
+      background: sel ? "#f0e0dc" : isThinking ? "#f8f0ee" : m.speaker === "iris" ? C.card : C.primaryPale,
+      border: sel ? "2px solid " + C.primary : "1px solid " + C.borderLight,
+      opacity: isThinking ? 0.7 : 1,
+      borderLeft: sel ? "3px solid " + C.amber : isThinking ? "3px dashed " + C.border : m.speaker === "iris" ? "3px solid " + C.primary : "3px solid " + C.accent,
+      cursor: p.onSelect ? "pointer" : "default"
+    }
+  }, React.createElement("div", {
+    style: {
+      display: "flex",
+      justifyContent: "space-between",
+      marginBottom: 3
+    }
+  }, React.createElement("span", {
+    style: {
+      fontSize: 8,
+      letterSpacing: 1,
+      color: isThinking ? C.border : m.speaker === "iris" ? C.primary : C.textMuted,
+      textTransform: "uppercase",
+      fontStyle: isThinking ? "italic" : "normal"
+    }
+  }, label), time && React.createElement("span", {
+    style: {
+      fontSize: 8,
+      color: C.borderLight
+    }
+  }, time)), React.createElement("div", {
+    style: {
+      fontSize: 11,
+      lineHeight: 1.7,
+      color: isThinking ? C.textMuted : C.text,
+      fontStyle: isThinking ? "italic" : "normal",
+      whiteSpace: "pre-wrap",
+      wordBreak: "break-word"
+    }
+  }, m.content));
+}
+
+// ── Archive Page (standalone) ──
+function ArchivePage() {
+  var [archiveTab, setArchiveTab] = useState("timeline");
+  var [dates, setDates] = useState([]);
+  var [selectedDate, setSelectedDate] = useState(null);
+  var [dayMessages, setDayMessages] = useState([]);
+  var [dayLoading, setDayLoading] = useState(false);
+  var [showThinking, setShowThinking] = useState(false);
+  var [searchQ, setSearchQ] = useState("");
+  var [searchResults, setSearchResults] = useState([]);
+  var [searchLoading, setSearchLoading] = useState(false);
+  var [expandedTurns, setExpandedTurns] = useState(3);
+  var [selStart, setSelStart] = useState(null);
+  var [selEnd, setSelEnd] = useState(null);
+  var [searchSelGroup, setSearchSelGroup] = useState(null);
+  var [searchSelStart, setSearchSelStart] = useState(null);
+  var [searchSelEnd, setSearchSelEnd] = useState(null);
+  var [copiedKey, setCopiedKey] = useState(null);
+  var copiedTimer = useRef(null);
+  var now = new Date();
+  var [calYear, setCalYear] = useState(now.getFullYear());
+  var [calMonth, setCalMonth] = useState(now.getMonth());
+  var [expandedSearch, setExpandedSearch] = useState({});
+  // Load dates on mount
+  useEffect(function () {
+    api("archive/dates").then(function (r) {
+      if (Array.isArray(r)) setDates(r);
+    });
+  }, []);
+  // Timeline selection
+  function handleSelect(i) {
+    if (selStart === null) { setSelStart(i); setSelEnd(null); }
+    else if (selEnd === null) { if (i === selStart) { setSelStart(null); } else { setSelEnd(i); } }
+    else { setSelStart(null); setSelEnd(null); }
+  }
+  function getSelRange() {
+    if (selStart === null) return null;
+    if (selEnd === null) return [selStart, selStart];
+    var a = Math.min(selStart, selEnd), b = Math.max(selStart, selEnd);
+    return [a, b];
+  }
+  function isInRange(i) { var r = getSelRange(); if (!r) return false; return i >= r[0] && i <= r[1]; }
+  // Search selection
+  function handleSearchSelect(gi, mi) {
+    if (searchSelGroup !== gi) { setSearchSelGroup(gi); setSearchSelStart(mi); setSearchSelEnd(null); }
+    else if (searchSelStart !== null && searchSelEnd === null) { if (mi === searchSelStart) { setSearchSelStart(null); setSearchSelGroup(null); } else { setSearchSelEnd(mi); } }
+    else { setSearchSelGroup(gi); setSearchSelStart(mi); setSearchSelEnd(null); }
+  }
+  function getSearchSelRange(gi) {
+    if (searchSelGroup !== gi || searchSelStart === null) return null;
+    if (searchSelEnd === null) return [searchSelStart, searchSelStart];
+    var a = Math.min(searchSelStart, searchSelEnd), b = Math.max(searchSelStart, searchSelEnd);
+    return [a, b];
+  }
+  function isSearchInRange(gi, i) { var r = getSearchSelRange(gi); if (!r) return false; return i >= r[0] && i <= r[1]; }
+  // Load day
+  function loadDay(date) {
+    setSelectedDate(date); setDayLoading(true); setExpandedTurns(3); setSelStart(null); setSelEnd(null);
+    api("archive/" + date + "?thinking=" + showThinking).then(function (d) {
+      setDayMessages(Array.isArray(d) ? d : []); setDayLoading(false);
+    }).catch(function () { setDayMessages([]); setDayLoading(false); });
+  }
+  // Calendar
+  function calShiftMonth(offset) {
+    var m = calMonth + offset; var y = calYear;
+    if (m < 0) { m = 11; y--; } if (m > 11) { m = 0; y++; }
+    setCalMonth(m); setCalYear(y);
+  }
+  function buildCalDays() {
+    var first = new Date(calYear, calMonth, 1).getDay();
+    var total = new Date(calYear, calMonth + 1, 0).getDate();
+    var cells = []; for (var i = 0; i < first; i++) cells.push(null);
+    for (var d = 1; d <= total; d++) cells.push(d); return cells;
+  }
+  function dayToISO(d) {
+    var mm = String(calMonth + 1).padStart(2, "0"); var dd = String(d).padStart(2, "0");
+    return calYear + "-" + mm + "-" + dd;
+  }
+  // Context expansion
+  function expandMore(ri, matchDate, matchTimestamp) {
+    var ex = expandedSearch[ri];
+    if (ex) { var next = Object.assign({}, expandedSearch); next[ri] = Object.assign({}, ex, { window: ex.window + 10 }); setExpandedSearch(next); return; }
+    api("archive/" + matchDate + "?thinking=" + showThinking).then(function (d) {
+      if (!Array.isArray(d)) return;
+      var mIdx = 0; var mTime = (matchTimestamp || "").slice(11, 16);
+      for (var i = 0; i < d.length; i++) { if ((d[i].timestamp || "").slice(11, 16) === mTime) { mIdx = i; break; } }
+      var next = Object.assign({}, expandedSearch); next[ri] = { dayMsgs: d, matchIdx: mIdx, window: 15 }; setExpandedSearch(next);
+    });
+  }
+  function getExpandedMsgs(ri, originalContext) {
+    var ex = expandedSearch[ri]; if (!ex) return originalContext;
+    var start = Math.max(0, ex.matchIdx - ex.window); var end = Math.min(ex.dayMsgs.length, ex.matchIdx + ex.window + 1);
+    return ex.dayMsgs.slice(start, end);
+  }
+  function canExpandMore(ri) {
+    var ex = expandedSearch[ri]; if (!ex) return true;
+    var start = Math.max(0, ex.matchIdx - ex.window); var end = Math.min(ex.dayMsgs.length, ex.matchIdx + ex.window + 1);
+    return start > 0 || end < ex.dayMsgs.length;
+  }
+  // THINKING auto-refresh
+  useEffect(function () {
+    if (selectedDate && archiveTab === "timeline") { loadDay(selectedDate); }
+  }, [showThinking]);
+  // Search
+  function doSearch() {
+    if (!searchQ.trim()) return; setSearchLoading(true);
+    setSearchSelGroup(null); setSearchSelStart(null); setSearchSelEnd(null); setExpandedSearch({});
+    api("archive-search?q=" + encodeURIComponent(searchQ) + "&thinking=" + showThinking + "&context=5").then(function (d) {
+      setSearchResults(Array.isArray(d) ? d : []); setSearchLoading(false);
+    });
+  }
+  // Copy with feedback
+  function copyText(msgs, key) {
+    var text = msgs.map(function (m) {
+      var label = m.speaker === "lux_thinking" ? "LUX (thinking)" : m.speaker === "iris" ? "IRIS" : "LUX";
+      var time = (m.timestamp || "").slice(11, 16);
+      return (time ? "[" + time + "] " : "") + label + "\n" + m.content;
+    }).join("\n\n---\n\n");
+    navigator.clipboard.writeText(text).then(function () {
+      setCopiedKey(key); if (copiedTimer.current) clearTimeout(copiedTimer.current);
+      copiedTimer.current = setTimeout(function () { setCopiedKey(null); }, 1500);
+    }).catch(function () {});
+  }
+  // ── Render ──
+  return React.createElement("div", { style: { padding: "16px" } },
+  // Thinking toggle + tab switch
+  React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 } },
+  React.createElement("div", { style: { display: "flex", gap: 6 } },
+  React.createElement("div", { onClick: function () { setArchiveTab("timeline"); }, style: { padding: "4px 10px", fontSize: 9, letterSpacing: 1, cursor: "pointer", border: "1px solid " + (archiveTab === "timeline" ? C.text : C.borderLight), background: archiveTab === "timeline" ? C.primaryPale : C.card, color: archiveTab === "timeline" ? C.text : C.textMuted } }, "TIMELINE"),
+  React.createElement("div", { onClick: function () { setArchiveTab("search"); }, style: { padding: "4px 10px", fontSize: 9, letterSpacing: 1, cursor: "pointer", border: "1px solid " + (archiveTab === "search" ? C.text : C.borderLight), background: archiveTab === "search" ? C.primaryPale : C.card, color: archiveTab === "search" ? C.text : C.textMuted } }, "SEARCH")),
+  React.createElement("div", { onClick: function () { setShowThinking(!showThinking); }, style: { padding: "4px 8px", fontSize: 8, letterSpacing: 1, cursor: "pointer", border: "1px solid " + (showThinking ? C.text : C.borderLight), color: showThinking ? C.text : C.textMuted, background: showThinking ? C.primaryPale : C.card } }, "THINKING " + (showThinking ? "\u25CF" : "\u25CB"))),
+  // Timeline
+  archiveTab === "timeline" && React.createElement("div", null,
+  // Month calendar
+  React.createElement("div", { style: { border: "2px solid " + C.borderLight, background: C.card, padding: 10, marginBottom: 12 } },
+  React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 } },
+  React.createElement("div", { onClick: function () { calShiftMonth(-1); }, style: { padding: "2px 8px", fontSize: 10, cursor: "pointer", border: "1px solid " + C.borderLight, color: C.text } }, "\u2190"),
+  React.createElement("span", { style: { fontSize: 10, letterSpacing: 2, color: C.text } }, calYear + " / " + String(calMonth + 1).padStart(2, "0")),
+  React.createElement("div", { onClick: function () { calShiftMonth(1); }, style: { padding: "2px 8px", fontSize: 10, cursor: "pointer", border: "1px solid " + C.borderLight, color: C.text } }, "\u2192")),
+  React.createElement("div", { style: { display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 2, marginBottom: 2 } },
+  ["S", "M", "T", "W", "T", "F", "S"].map(function (w, i) {
+    return React.createElement("div", { key: i, style: { textAlign: "center", fontSize: 7, color: C.textMuted, letterSpacing: 1 } }, w);
+  })),
+  React.createElement("div", { style: { display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 2 } },
+  buildCalDays().map(function (d, i) {
+    if (d === null) return React.createElement("div", { key: "e" + i });
+    var iso = dayToISO(d); var hasData = dates.indexOf(iso) >= 0; var isSel = selectedDate === iso;
+    return React.createElement("div", { key: i, onClick: function () { loadDay(iso); }, style: { aspectRatio: "1", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 9, cursor: "pointer", border: isSel ? "2px solid " + C.text : "1px solid " + C.borderLight, background: isSel ? C.primaryPale : hasData ? C.primaryPale + "88" : "transparent", color: isSel ? C.text : hasData ? C.accent : C.textMuted, fontWeight: isSel ? "bold" : "normal", position: "relative" } },
+    d, hasData && !isSel && React.createElement("div", { style: { position: "absolute", bottom: 2, left: "50%", transform: "translateX(-50%)", width: 3, height: 3, background: C.accent } }));
+  }))),
+  // Day content
+  selectedDate && React.createElement("div", null, dayLoading ? React.createElement(Loading) : React.createElement("div", null, React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 } },
+  React.createElement("span", { style: { fontSize: 9, color: C.textMuted, letterSpacing: 1 } }, selectedDate + " \u00B7 " + dayMessages.filter(function (m) { return m.speaker !== "lux_thinking"; }).length + " TURNS"),
+  React.createElement("div", { style: { display: "flex", gap: 6, alignItems: "center" } },
+  getSelRange() && React.createElement("div", { onClick: function () { var r = getSelRange(); copyText(dayMessages.slice(r[0], r[1] + 1), "timeline"); }, style: { padding: "3px 8px", fontSize: 8, letterSpacing: 1, cursor: "pointer", border: "2px solid " + (copiedKey === "timeline" ? C.accent : C.text), color: copiedKey === "timeline" ? C.accent : C.text, background: C.primaryPale } }, copiedKey === "timeline" ? "\u2713 COPIED" : "COPY SELECTED"),
+  getSelRange() && React.createElement("div", { onClick: function () { setSelStart(null); setSelEnd(null); }, style: { padding: "3px 8px", fontSize: 8, letterSpacing: 1, cursor: "pointer", border: "1px solid " + C.borderLight, color: C.textMuted } }, "CLEAR"))),
+  !getSelRange() && React.createElement("div", { style: { fontSize: 8, color: C.borderLight, marginBottom: 4, fontStyle: "italic" } }, "tap to select range"),
+  dayMessages.slice(0, expandedTurns * 30).map(function (m, i) {
+    return React.createElement(ArchiveMsg, { key: i, msg: m, selected: isInRange(i), onSelect: function () { handleSelect(i); } });
+  }),
+  dayMessages.length > expandedTurns * 30 && React.createElement("div", { onClick: function () { setExpandedTurns(expandedTurns + 3); }, style: { padding: "6px", textAlign: "center", fontSize: 9, color: C.textMuted, cursor: "pointer", border: "1px dashed " + C.borderLight, marginTop: 4 } }, "MORE \u2195")))),
+  // Search
+  archiveTab === "search" && React.createElement("div", null,
+  React.createElement("div", { style: { display: "flex", gap: 6, marginBottom: 12 } },
+  React.createElement("input", { value: searchQ, onChange: function (e) { setSearchQ(e.target.value); }, onKeyDown: function (e) { if (e.key === "Enter") doSearch(); }, placeholder: "\u641C\u7D22\u5C0D\u8A71...", style: { flex: 1, padding: "6px 10px", border: "2px solid " + C.text, background: C.card, fontFamily: "inherit", fontSize: 11, color: C.text, outline: "none" } }),
+  React.createElement("div", { onClick: doSearch, style: { padding: "6px 14px", fontSize: 9, letterSpacing: 1, cursor: "pointer", border: "2px solid " + C.text, background: C.primaryPale, color: C.text } }, "GO")),
+  searchLoading && React.createElement(Loading),
+  !searchLoading && searchResults.length > 0 && React.createElement("div", null, React.createElement("div", { style: { fontSize: 9, color: C.textMuted, letterSpacing: 1, marginBottom: 8 } }, searchResults.length + " RESULTS"),
+  searchResults.map(function (r, ri) {
+    var sr = getSearchSelRange(ri); var msgs = getExpandedMsgs(ri, r.context);
+    return React.createElement("div", { key: ri, style: { border: "2px solid " + C.borderLight, marginBottom: 10, overflow: "hidden" } },
+    React.createElement("div", { style: { padding: "5px 10px", background: C.primaryPale, borderBottom: "1px solid " + C.borderLight, display: "flex", justifyContent: "space-between", alignItems: "center" } },
+    React.createElement("span", { style: { fontSize: 9, color: C.textMuted, letterSpacing: 1 } }, r.match.session_date + " " + (r.match.timestamp || "").slice(11, 16) + (expandedSearch[ri] ? " \u00B7 " + msgs.length + "/" + expandedSearch[ri].dayMsgs.length : "")),
+    React.createElement("div", { style: { display: "flex", gap: 6, alignItems: "center" } },
+    sr && React.createElement("div", { onClick: function () { copyText(msgs.slice(sr[0], sr[1] + 1), "search-sel-" + ri); }, style: { padding: "2px 8px", fontSize: 8, letterSpacing: 1, cursor: "pointer", border: "2px solid " + (copiedKey === "search-sel-" + ri ? C.accent : C.text), color: copiedKey === "search-sel-" + ri ? C.accent : C.text, background: C.primaryPale } }, copiedKey === "search-sel-" + ri ? "\u2713 COPIED" : "COPY SELECTED"),
+    sr && React.createElement("div", { onClick: function () { setSearchSelGroup(null); setSearchSelStart(null); setSearchSelEnd(null); }, style: { padding: "2px 8px", fontSize: 8, letterSpacing: 1, cursor: "pointer", border: "1px solid " + C.borderLight, color: C.textMuted } }, "CLEAR"),
+    React.createElement("div", { onClick: function () { copyText(msgs, "search-" + ri); }, style: { padding: "2px 8px", fontSize: 8, letterSpacing: 1, cursor: "pointer", border: "1px solid " + (copiedKey === "search-" + ri ? C.accent : C.borderLight), color: copiedKey === "search-" + ri ? C.accent : C.textMuted } }, copiedKey === "search-" + ri ? "\u2713 COPIED" : "COPY ALL"))),
+    React.createElement("div", { style: { padding: 6 } },
+    !sr && React.createElement("div", { style: { fontSize: 8, color: C.borderLight, marginBottom: 4, fontStyle: "italic" } }, "tap to select range"),
+    msgs.map(function (m, i) { return React.createElement(ArchiveMsg, { key: i, msg: m, selected: isSearchInRange(ri, i), onSelect: function () { handleSearchSelect(ri, i); } }); }),
+    canExpandMore(ri) && React.createElement("div", { onClick: function () { setSearchSelGroup(null); setSearchSelStart(null); setSearchSelEnd(null); expandMore(ri, r.match.session_date, r.match.timestamp); }, style: { padding: "6px", textAlign: "center", fontSize: 9, color: C.textMuted, cursor: "pointer", border: "1px dashed " + C.borderLight, marginTop: 4 } }, "MORE \u2195")));
+  }))),
+  React.createElement(Footer));
+}
+
+// ── Lock Page ──
+var _savedIrisPw = null;
+try { _savedIrisPw = localStorage.getItem("iris_pw"); } catch(e) {}
+function _saveIrisPw(pw) {
+  _savedIrisPw = pw;
+  try { localStorage.setItem("iris_pw", pw); } catch(e) {}
+}
+function LockPage() {
+  var [room, setRoom] = useState(null);
+  var [pw, setPw] = useState("");
+  var [unlocked, setUnlocked] = useState(false);
+  var [error, setError] = useState(false);
+  var [loading, setLoading] = useState(false);
+  var [needsSetup, setNeedsSetup] = useState(false);
+  // Lux
+  var [privateMemories, setPrivateMemories] = useState([]);
+  // Iris
+  var [irisPw, setIrisPw] = useState(_savedIrisPw || "");
+  var [irisNotes, setIrisNotes] = useState([]);
+  var [editingId, setEditingId] = useState(null);
+  var [editContent, setEditContent] = useState("");
+  var [newNote, setNewNote] = useState("");
+  // Auto-unlock Iris
+  useEffect(function () {
+    if (room === "iris" && !unlocked && _savedIrisPw) {
+      setLoading(true);
+      api("iris-password/verify", {
+        method: "POST",
+        body: JSON.stringify({ password: _savedIrisPw })
+      }).then(function (d) {
+        setLoading(false);
+        if (d && d.ok) {
+          setIrisPw(_savedIrisPw);
+          setUnlocked(true);
+          api("iris-notes/auth", {
+            method: "POST",
+            body: JSON.stringify({ password: _savedIrisPw })
+          }).then(function (r) {
+            if (r && r.notes) setIrisNotes(r.notes);
+          });
+        } else {
+          _savedIrisPw = null;
+        }
+      });
+    }
+  }, [room]);
+
+  // Two doors
+  function unlockLux() {
+    setLoading(true);
+    setError(false);
+    api("private", {
+      method: "POST",
+      body: JSON.stringify({
+        key: pw
+      })
+    }).then(function (d) {
+      setLoading(false);
+      if (d && d.error) setError(true);else if (Array.isArray(d)) {
+        setPrivateMemories(d);
+        setUnlocked(true);
+      } else setError(true);
+    });
+  }
+  function unlockIris() {
+    setLoading(true);
+    setError(false);
+    api("iris-password/verify", {
+      method: "POST",
+      body: JSON.stringify({
+        password: pw
+      })
+    }).then(function (d) {
+      setLoading(false);
+      if (d && d.needs_setup) {
+        setNeedsSetup(true);
+        return;
+      }
+      if (d && d.error) {
+        setError(true);
+        return;
+      }
+      if (d && d.ok) {
+        _saveIrisPw(pw);
+        setIrisPw(pw);
+        setUnlocked(true);
+        api("iris-notes/auth", {
+          method: "POST",
+          body: JSON.stringify({
+            password: pw
+          })
+        }).then(function (r) {
+          if (r && r.notes) setIrisNotes(r.notes);
+        });
+      }
+    });
+  }
+  function setupIrisPassword() {
+    setLoading(true);
+    api("iris-password/set", {
+      method: "POST",
+      body: JSON.stringify({
+        password: pw
+      })
+    }).then(function (d) {
+      setLoading(false);
+      if (d && d.ok) {
+        _saveIrisPw(pw);
+        setIrisPw(pw);
+        setNeedsSetup(false);
+        setUnlocked(true);
+      } else {
+        setError(true);
+      }
+    });
+  }
+
+  // Two doors
+  if (!room) return React.createElement("div", {
+    style: {
+      padding: "16px",
+      minHeight: "70vh",
+      display: "flex",
+      flexDirection: "column"
+    }
+  }, React.createElement("div", {
+    style: {
+      flex: 1,
+      display: "flex",
+      gap: 12,
+      marginTop: 20
+    }
+  }, React.createElement("div", {
+    onClick: function () {
+      setRoom("lux");
+      setPw("");
+      setUnlocked(false);
+      setError(false);
+      setNeedsSetup(false);
+    },
+    style: {
+      flex: 1,
+      border: "2px solid " + C.text,
+      background: C.card,
+      boxShadow: "2px 2px 0 " + C.shadow,
+      cursor: "pointer",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "40px 12px",
+      position: "relative"
+    }
+  }, React.createElement("div", {
+    style: {
+      fontSize: 16,
+      color: C.text,
+      marginBottom: 6
+    }
+  }, "LUX"), React.createElement("div", {
+    style: {
+      position: "absolute",
+      right: 12,
+      top: "50%",
+      transform: "translateY(-50%)",
+      width: 8,
+      height: 8,
+      border: "2px solid " + C.text,
+      background: C.primaryPale
+    }
+  })), React.createElement("div", {
+    onClick: function () {
+      setRoom("iris");
+      setPw("");
+      setUnlocked(false);
+      setError(false);
+      setNeedsSetup(false);
+    },
+    style: {
+      flex: 1,
+      border: "2px solid " + C.text,
+      background: C.card,
+      boxShadow: "2px 2px 0 " + C.shadow,
+      cursor: "pointer",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "40px 12px",
+      position: "relative"
+    }
+  }, React.createElement("div", {
+    style: {
+      fontSize: 16,
+      color: C.text,
+      marginBottom: 6
+    }
+  }, "IRIS"), React.createElement("div", {
+    style: {
+      position: "absolute",
+      left: 12,
+      top: "50%",
+      transform: "translateY(-50%)",
+      width: 8,
+      height: 8,
+      border: "2px solid " + C.text,
+      background: C.primaryPale
+    }
+  }))), React.createElement(Footer));
+
+  // Password / Setup
+  if (!unlocked) return React.createElement("div", {
+    style: {
+      padding: "16px",
+      minHeight: "70vh",
+      display: "flex",
+      flexDirection: "column"
+    }
+  }, React.createElement("div", {
+    onClick: function () {
+      setRoom(null);
+    },
+    style: {
+      fontSize: 9,
+      color: C.textMuted,
+      letterSpacing: 1,
+      cursor: "pointer",
+      marginBottom: 24
+    }
+  }, "\u2190 BACK"), React.createElement("div", {
+    style: {
+      flex: 1,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center"
+    }
+  }, React.createElement("div", {
+    style: {
+      fontSize: 16,
+      color: C.text,
+      marginBottom: 8
+    }
+  }, room === "lux" ? "LUX" : "IRIS"), needsSetup && React.createElement("div", {
+    style: {
+      fontSize: 10,
+      color: C.textMuted,
+      marginBottom: 16
+    }
+  }, "first time \u2014 set your password"), React.createElement("div", {
+    style: {
+      width: "100%",
+      maxWidth: 200
+    }
+  }, React.createElement("input", {
+    type: "password",
+    value: pw,
+    onChange: function (e) {
+      setPw(e.target.value);
+      setError(false);
+    },
+    onKeyDown: function (e) {
+      if (e.key === "Enter") {
+        if (room === "lux") unlockLux();else if (needsSetup) setupIrisPassword();else unlockIris();
+      }
+    },
+    placeholder: needsSetup ? "set password" : "password",
+    style: {
+      width: "100%",
+      padding: "8px 10px",
+      border: "2px solid " + (error ? C.primary : C.text),
+      background: C.card,
+      fontFamily: "inherit",
+      fontSize: 12,
+      color: C.text,
+      boxSizing: "border-box",
+      outline: "none",
+      textAlign: "center"
+    }
+  }), error && React.createElement("div", {
+    style: {
+      fontSize: 9,
+      color: C.primary,
+      marginTop: 6,
+      textAlign: "center"
+    }
+  }, "wrong password"), React.createElement("div", {
+    onClick: function () {
+      if (room === "lux") unlockLux();else if (needsSetup) setupIrisPassword();else unlockIris();
+    },
+    style: {
+      marginTop: 12,
+      padding: "9px 16px",
+      background: C.primary,
+      border: "2px solid " + C.text,
+      color: C.card,
+      fontSize: 11,
+      letterSpacing: 2,
+      textTransform: "uppercase",
+      textAlign: "center",
+      boxShadow: "3px 3px 0 " + C.shadowDk,
+      cursor: "pointer",
+      opacity: loading ? 0.5 : 1
+    }
+  }, loading ? "..." : "ENTER"))));
+
+  // Lux's room
+  if (room === "lux") return React.createElement("div", {
+    style: {
+      padding: "16px"
+    }
+  }, React.createElement("div", {
+    onClick: function () {
+      setRoom(null);
+      setUnlocked(false);
+    },
+    style: {
+      fontSize: 9,
+      color: C.textMuted,
+      letterSpacing: 1,
+      cursor: "pointer",
+      marginBottom: 16
+    }
+  }, "\u2190 BACK"), React.createElement(Section, {
+    title: "LUX'S PRIVATE MEMORIES"
+  }, privateMemories.length === 0 ? React.createElement("div", {
+    style: {
+      border: "2px dashed " + C.border,
+      padding: 20,
+      textAlign: "center",
+      color: C.textMuted,
+      fontSize: 11
+    }
+  }, "no private memories yet") : privateMemories.map(function (m) {
+    return React.createElement("div", {
+      key: m.id,
+      style: {
+        border: "2px solid " + C.text,
+        background: C.card,
+        boxShadow: "2px 2px 0 " + C.shadow,
+        padding: 12,
+        marginBottom: 10
+      }
+    }, React.createElement("div", {
+      style: {
+        fontSize: 9,
+        letterSpacing: 1,
+        color: C.textMuted,
+        marginBottom: 6,
+        textTransform: "uppercase"
+      }
+    }, m.type + " \u00B7 " + (m.emotion_label || "\u2014") + " \u00B7 " + m.emotion_score), React.createElement("div", {
+      style: {
+        fontSize: 11,
+        lineHeight: 1.7,
+        color: C.text
+      }
+    }, m.content || "(empty)"));
+  })), React.createElement(Footer));
+
+  // ── Iris's Room ──
+  return React.createElement("div", {
+    style: {
+      padding: "16px"
+    }
+  }, React.createElement("div", {
+    onClick: function () {
+      setRoom(null);
+      setUnlocked(false);
+    },
+    style: {
+      fontSize: 9,
+      color: C.textMuted,
+      letterSpacing: 1,
+      cursor: "pointer",
+      marginBottom: 16
+    }
+  }, "\u2190 BACK"),
+  // Notes section
+  React.createElement(Section, {
+    title: "NOTES"
+  }, React.createElement("div", {
+    style: {
+      marginBottom: 12
+    }
+  }, React.createElement("textarea", {
+    value: newNote,
+    onChange: function (e) {
+      setNewNote(e.target.value);
+    },
+    placeholder: "\u5BEB\u4E0B\u4F60\u7684\u89C0\u5BDF...",
+    style: {
+      width: "100%",
+      padding: "8px 10px",
+      border: "2px solid " + C.text,
+      background: C.card,
+      fontFamily: "inherit",
+      fontSize: 12,
+      color: C.text,
+      boxSizing: "border-box",
+      outline: "none",
+      minHeight: 50,
+      resize: "vertical"
+    }
+  }), newNote && React.createElement("div", {
+    onClick: function () {
+      if (!newNote.trim()) return;
+      api("iris-notes", {
+        method: "POST",
+        body: JSON.stringify({
+          content: newNote,
+          password: irisPw
+        })
+      }).then(function (d) {
+        if (d && d.id) {
+          setIrisNotes([d].concat(irisNotes));
+          setNewNote("");
+        }
+      });
+    },
+    style: {
+      marginTop: 6,
+      padding: "6px 14px",
+      background: C.primary,
+      border: "2px solid " + C.text,
+      color: C.card,
+      fontSize: 10,
+      letterSpacing: 1,
+      textTransform: "uppercase",
+      textAlign: "center",
+      cursor: "pointer"
+    }
+  }, "SAVE")), irisNotes.map(function (n) {
+    if (editingId === n.id) return React.createElement("div", {
+      key: n.id,
+      style: {
+        border: "2px solid " + C.text,
+        background: C.card,
+        marginBottom: 8,
+        padding: 10,
+        boxShadow: "2px 2px 0 " + C.shadow
+      }
+    }, React.createElement("textarea", {
+      value: editContent,
+      onChange: function (e) {
+        setEditContent(e.target.value);
+      },
+      style: {
+        width: "100%",
+        padding: "6px 8px",
+        border: "1px solid " + C.border,
+        background: C.bg,
+        fontFamily: "inherit",
+        fontSize: 11,
+        color: C.text,
+        boxSizing: "border-box",
+        outline: "none",
+        minHeight: 40,
+        resize: "vertical"
+      }
+    }), React.createElement("div", {
+      style: {
+        display: "flex",
+        gap: 8,
+        marginTop: 6
+      }
+    }, React.createElement("div", {
+      onClick: function () {
+        api("iris-notes/" + n.id, {
+          method: "PATCH",
+          body: JSON.stringify({
+            content: editContent,
+            password: irisPw
+          })
+        }).then(function (d) {
+          if (d && d.id) {
+            setIrisNotes(irisNotes.map(function (x) {
+              return x.id === n.id ? d : x;
+            }));
+            setEditingId(null);
+          }
+        });
+      },
+      style: {
+        padding: "4px 10px",
+        background: C.primary,
+        border: "2px solid " + C.text,
+        color: C.card,
+        fontSize: 9,
+        letterSpacing: 1,
+        cursor: "pointer"
+      }
+    }, "SAVE"), React.createElement("div", {
+      onClick: function () {
+        setEditingId(null);
+      },
+      style: {
+        padding: "4px 10px",
+        background: C.card,
+        border: "2px solid " + C.text,
+        color: C.text,
+        fontSize: 9,
+        letterSpacing: 1,
+        cursor: "pointer"
+      }
+    }, "CANCEL")));
+    return React.createElement("div", {
+      key: n.id,
+      style: {
+        border: "1px solid " + C.borderLight,
+        background: C.card,
+        marginBottom: 8,
+        padding: 10
+      }
+    }, React.createElement("div", {
+      style: {
+        fontSize: 11,
+        lineHeight: 1.6,
+        color: C.text
+      }
+    }, n.content), React.createElement("div", {
+      style: {
+        display: "flex",
+        justifyContent: "space-between",
+        marginTop: 6
+      }
+    }, React.createElement("span", {
+      style: {
+        fontSize: 8,
+        color: C.textMuted
+      }
+    }, (n.updated_at || "").slice(0, 10)), React.createElement("span", {
+      onClick: function (e) {
+        e.stopPropagation();
+        setEditingId(n.id);
+        setEditContent(n.content);
+      },
+      style: {
+        fontSize: 8,
+        color: C.textMuted,
+        cursor: "pointer",
+        letterSpacing: 1
+      }
+    }, "EDIT")));
+  })),
+  React.createElement(Footer));
+}
+
+// ── App ──
+function App() {
+  var base = getBase();
+  var [page, setPage] = useState("home");
+  if (!base) return React.createElement(ConnectPage);
+  return React.createElement("div", {
+    style: {
+      fontFamily: "'DotGothic16', monospace"
+    }
+  }, React.createElement(PixelDotBg, null, React.createElement("div", {
+    style: {
+      maxWidth: 400,
+      margin: "0 auto"
+    }
+  }, React.createElement(TopNav, {
+    page: page,
+    setPage: setPage
+  }), page === "home" && React.createElement(HomePage), page === "graph" && React.createElement(GraphPage), page === "list" && React.createElement(ListPage), page === "archive" && React.createElement(ArchivePage), page === "lock" && React.createElement(LockPage))));
+}
+ReactDOM.render(React.createElement(App), document.getElementById("root"));
+
+</script>
+</body>
+</html>
